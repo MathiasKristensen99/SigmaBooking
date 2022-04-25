@@ -10,7 +10,7 @@ pipeline {
                 anyOf {
                     changeset "SigmaBooking.Backend/SigmaBooking.WebApi/**"
                     changeset "SigmaBooking.Backend/SigmaBooking.Domain/**"
-                    changeset "SigmaBooking.Backend/SigmaBooking.DB/**"
+                    changeset "SigmaBooking.Backend/SigmaBooking.MongoDB/**"
                     changeset "SigmaBooking.Backend/SigmaBooking.Core/**"
                     changeset "SigmaBooking.Backend/Security/**"
                 }

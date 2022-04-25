@@ -14,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigmaBooking.Domain.Test", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{92AF16A2-B0E1-4674-BC89-E58BE2379B9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigmaBooking.DB", "SigmaBooking.DB\SigmaBooking.DB.csproj", "{73CC2F7F-19F0-4414-AD4B-A203B05ACBAB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SigmaBooking.MongoDB", "SigmaBooking.MongoDB\SigmaBooking.MongoDB.csproj", "{73CC2F7F-19F0-4414-AD4B-A203B05ACBAB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{3E4F0D12-8BF6-4C43-92CA-114D9DFFB91B}"
 EndProject
