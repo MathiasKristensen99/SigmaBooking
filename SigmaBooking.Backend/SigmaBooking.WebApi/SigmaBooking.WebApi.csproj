@@ -15,4 +15,10 @@
       <Folder Include="Controllers" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\SigmaBooking.Core\SigmaBooking.Core.csproj" />
+      <ProjectReference Include="..\SigmaBooking.Domain\SigmaBooking.Domain.csproj" />
+      <ProjectReference Include="..\SigmaBooking.MongoDB\SigmaBooking.MongoDB.csproj" />
+    </ItemGroup>
+
 </Project>
