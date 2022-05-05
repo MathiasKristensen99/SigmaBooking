@@ -24,7 +24,29 @@ public class TableRepository : ITableRepository
 
     public Table CreateTable(Table table)
     {
-        throw new NotImplementedException();
+        var tableEntity = new TableEntity
+        {
+            Id = table.Id,
+            Static = table.Static,
+            X = table.X,
+            Y = table.Y,
+            W = table.W,
+            H = table.H,
+            I = table.I
+        };
+        
+        _tablesCollection.InsertOne(tableEntity);
+
+        return new Table
+        {
+            Id = tableEntity.Id,
+            Static = tableEntity.Static,
+            X = tableEntity.X,
+            Y = tableEntity.Y,
+            W = tableEntity.W,
+            H = tableEntity.H,
+            I = tableEntity.I
+        };
     }
 
     public List<Table> GetAllTables()
