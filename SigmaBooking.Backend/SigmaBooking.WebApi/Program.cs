@@ -16,7 +16,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<SigmaBookingDatabaseSettings>(builder.Configuration.GetSection("SigmaBookingDatabase"));
 
 builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<ITableService, TableService>();
 builder.Services.AddSingleton<IBookingRepository, BookingRepository>();
+builder.Services.AddSingleton<ITableRepository, TableRepository>();
 
 builder.Services.AddCors(options => options
     .AddPolicy("dev-policy", policyBuilder =>

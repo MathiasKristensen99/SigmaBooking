@@ -1,6 +1,6 @@
-﻿namespace SigmaBooking.Core.Models;
+﻿namespace SigmaBooking.WebApi.Dtos;
 
-public class Booking
+public class BookingDto
 {
     public string Id { get; set; }
     public string TableId { get; set; }

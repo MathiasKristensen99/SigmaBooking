@@ -26,9 +26,13 @@ public class BookingRepository : IBookingRepository
         var bookingEntity = new BookingEntity
         {
             Id = booking.Id,
+            TableId = booking.TableId,
             Name = booking.Name,
             Phone = booking.Phone,
-            Time = booking.Time,
+            Email = booking.Email,
+            StartTime = booking.StartTime,
+            EndTime = booking.EndTime,
+            IsEating = booking.IsEating,
             Description = booking.Description
         };
         
@@ -37,9 +41,13 @@ public class BookingRepository : IBookingRepository
         return new Booking
         {
             Id = bookingEntity.Id,
+            TableId = bookingEntity.TableId,
             Name = bookingEntity.Name,
             Phone = bookingEntity.Phone,
-            Time = bookingEntity.Time,
+            Email = bookingEntity.Email,
+            StartTime = bookingEntity.StartTime,
+            EndTime = bookingEntity.EndTime,
+            IsEating = bookingEntity.IsEating,
             Description = bookingEntity.Description
         };
     }
