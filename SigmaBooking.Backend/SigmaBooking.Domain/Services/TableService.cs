@@ -14,21 +14,26 @@ public class TableService : ITableService
     }
     public Table CreateTable(Table table)
     {
-        throw new NotImplementedException();
+        return _tableRepository.CreateTable(table);
     }
 
     public List<Table> GetAllTables()
     {
-        throw new NotImplementedException();
+        return _tableRepository.GetAllTables();
     }
 
     public Table UpdateTable(Table table)
     {
-        throw new NotImplementedException();
+        return _tableRepository.UpdateTable(table);
     }
 
     public void DeleteTable(string id)
     {
-        throw new NotImplementedException();
+        _tableRepository.DeleteTable(id);
+    }
+
+    public Table GetTableById(string id)
+    {
+        return _tableRepository.GetTableById(id);
     }
 }

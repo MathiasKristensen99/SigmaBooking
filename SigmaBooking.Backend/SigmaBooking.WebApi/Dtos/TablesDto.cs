@@ -2,5 +2,5 @@
 
 public class TablesDto
 {
-    private List<TableDto> Tables { get; set; }
+    public List<TableDto> List { get; set; }
 }

@@ -8,5 +8,5 @@ public class Table
     public int Y { get; set; }
     public int W { get; set; }
     public int H { get; set; }
-    public int I { get; set; }
+    public string I { get; set; }
 }

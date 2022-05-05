@@ -20,7 +20,7 @@ public class BookingServiceTest
     
     
     [Fact]
-    public void GetAll_NoParams_CallsAccountRepositoryOnce()
+    public void GetAll_NoParams_CallsBookingRepositoryOnce()
     {
         // arrange
         var repoMock = new Mock<IBookingRepository>();

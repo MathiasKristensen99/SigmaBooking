@@ -18,7 +18,7 @@ public class TableServiceTest
     
     
         [Fact]
-        public void GetAll_NoParams_CallsAccountRepositoryOnce()
+        public void GetAll_NoParams_CallsTableRepositoryOnce()
         {
             // arrange
             var repoMock = new Mock<ITableRepository>();

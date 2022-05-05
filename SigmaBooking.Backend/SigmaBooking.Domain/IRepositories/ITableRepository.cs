@@ -11,4 +11,6 @@ public interface ITableRepository
     Table UpdateTable(Table table);
 
     void DeleteTable(string id);
+    
+    Table GetTableById(string id);
 }

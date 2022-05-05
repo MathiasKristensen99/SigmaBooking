@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using SigmaBooking.Core.Models;
 using SigmaBooking.Domain.IRepositories;
@@ -51,7 +52,29 @@ public class TableRepository : ITableRepository
 
     public List<Table> GetAllTables()
     {
-        throw new NotImplementedException();
+        var query = _tablesCollection.AsQueryable<TableEntity>()
+            .Select(entity => new
+            {
+                entity.Id, entity.Static, entity.X, entity.Y, entity.W, entity.H, entity.I
+            });
+
+        var tables = new List<Table>();
+
+        foreach (var table in query)
+        {
+            tables.Add(new Table()
+            {
+                Id = table.Id,
+                Static = table.Static,
+                X = table.X,
+                Y = table.Y,
+                W = table.W,
+                H = table.H,
+                I = table.I
+            });
+        }
+
+        return tables;
     }
 
     public Table UpdateTable(Table table)
@@ -61,6 +84,23 @@ public class TableRepository : ITableRepository
 
     public void DeleteTable(string id)
     {
-        throw new NotImplementedException();
+        _tablesCollection.DeleteOne(entity => entity.Id == id);
+    }
+
+    public Table GetTableById(string id)
+    {
+        var table = _tablesCollection.Find(Builders<TableEntity>.Filter.Eq("_id", ObjectId.Parse(id)))
+            .FirstOrDefault();
+
+        return new Table
+        {
+            Id = table.Id,
+            Static = table.Static,
+            X = table.X,
+            Y = table.Y,
+            W = table.W,
+            H = table.H,
+            I = table.I
+        };
     }
 }
