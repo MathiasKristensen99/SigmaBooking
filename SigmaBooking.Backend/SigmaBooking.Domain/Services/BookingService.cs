@@ -32,4 +32,9 @@ public class BookingService : IBookingService
     {
         return _repository.UpdateBooking(booking);
     }
+    
+    public List<Booking> GetAllBookings()
+    {
+        throw new NotImplementedException();
+    }
 }

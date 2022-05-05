@@ -66,4 +66,9 @@ public class BookingRepository : IBookingRepository
     {
         throw new NotImplementedException();
     }
+
+    public List<Booking> GetAllBookings()
+    {
+        throw new NotImplementedException();
+    }
 }

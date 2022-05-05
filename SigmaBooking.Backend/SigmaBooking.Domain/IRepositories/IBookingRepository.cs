@@ -11,4 +11,6 @@ public interface IBookingRepository
     void DeleteBooking(string id);
 
     Booking UpdateBooking(Booking booking);
+    
+    List<Booking> GetAllBookings();
 }
