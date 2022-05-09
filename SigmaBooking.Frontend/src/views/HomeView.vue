@@ -10,13 +10,14 @@
         </div>
       </div>
     </div>
-    <button @click="addItem">Add an item dynamically</button>
+    <button @click="addItem">Tilføj bord</button>
+    <button @click="updateLayout">Gem bordopstilling</button>
     <input type="checkbox" v-model="draggable" /> Draggable
     <input type="checkbox" v-model="resizable" /> Resizable
     <grid-layout
       v-model:layout="layout"
       :col-num="colNum"
-      :row-height="30"
+      :row-height="40"
       :is-draggable="draggable"
       :is-resizable="resizable"
       :responsive="false"
@@ -38,7 +39,7 @@
           <br />
           <button class="click">Click</button>
         </span>
-        <span class="remove" @click="removeItem(item.i)">x</span>
+        <span class="remove" @click="removeItem(item.id)">x</span>
       </grid-item>
     </grid-layout>
   </div>
@@ -58,7 +59,7 @@ export default {
       layout: [],
       draggable: true,
       resizable: true,
-      colNum: 12,
+      colNum: 40,
       index: 0,
     };
   },
@@ -68,20 +69,41 @@ export default {
   },
   methods: {
     addItem: function () {
-      // Add a new item. It must have a unique key!
-      this.layout.push({
+      const item = {
         x: 0,
-        y: this.layout.length + (this.colNum || 12), // puts it at the bottom
-        w: 2,
-        h: 2,
-        i: this.index,
-      });
-      // Increment the counter to ensure key is always unique.
-      this.index++;
+        y: 0,
+        w: 3,
+        h: 3,
+        i: (this.layout.length + 1).toString(),
+        static: false,
+      };
+      axios
+        .post("https://localhost:7026/api/Tables/", {
+          x: item.x,
+          y: item.y,
+          w: item.w,
+          h: item.h,
+          i: item.i,
+          id: "string",
+        })
+        .then((response) => {
+          this.layout.push(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     removeItem: function (val) {
-      const index = this.layout.map((item) => item.i).indexOf(val);
-      this.layout.splice(index, 1);
+      axios
+        .delete("https://localhost:7026/api/Tables/" + val)
+        .then((response) => {
+          console.log(response.data);
+          const index = this.layout.map((item) => item.id).indexOf(val);
+          this.layout.splice(index, 1);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     getLayout() {
       axios
@@ -92,6 +114,17 @@ export default {
           }
           //this.layout.push(response.data);
           console.log(this.layout);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    updateLayout() {
+      console.log(this.layout);
+      axios
+        .put("https://localhost:7026/api/Tables/", this.layout)
+        .then((response) => {
+          console.log(response.data);
         })
         .catch((error) => {
           console.log(error);

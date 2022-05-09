@@ -27,6 +27,11 @@ public class TableService : ITableService
         return _tableRepository.UpdateTable(table);
     }
 
+    public List<Table> UpdateTables(List<Table> tables)
+    {
+        return _tableRepository.UpdateTables(tables);
+    }
+
     public void DeleteTable(string id)
     {
         _tableRepository.DeleteTable(id);

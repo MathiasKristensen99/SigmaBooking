@@ -61,5 +61,44 @@ namespace SigmaBooking.WebApi.Controllers
 
             return tables;
         }
+
+        [HttpPut]
+        public ActionResult<TablesDto> UpdateTables([FromBody] TableDto[] tables)
+        {
+            var tablesFromDto = new List<Table>();
+            foreach (var table in tables)
+            {
+                tablesFromDto.Add(new Table
+                {
+                    Id = table.Id,
+                    Static = table.Static,
+                    X = table.X,
+                    Y = table.Y,
+                    W = table.W,
+                    H = table.H,
+                    I = table.I
+                });
+            }
+
+            _tableService.UpdateTables(tablesFromDto);
+            
+            return Ok(new TablesDto
+            {
+                List = tables.ToList()
+            });
+        }
+
+        [HttpDelete("{id}")]
+        public void DeleteTable(string id)
+        {
+            try
+            {
+                _tableService.DeleteTable(id);
+            }
+            catch (ArgumentException ae)
+            {
+                StatusCode(500, ae.Message);
+            }
+        }
     }
 }

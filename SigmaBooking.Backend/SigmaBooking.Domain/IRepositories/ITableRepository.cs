@@ -9,6 +9,8 @@ public interface ITableRepository
     List<Table> GetAllTables();
 
     Table UpdateTable(Table table);
+    
+    List<Table> UpdateTables(List<Table> tables);
 
     void DeleteTable(string id);
     
