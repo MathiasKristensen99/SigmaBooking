@@ -35,6 +35,6 @@ public class BookingService : IBookingService
     
     public List<Booking> GetAllBookings()
     {
-        throw new NotImplementedException();
+        return _repository.GetAllBookings();
     }
 }
