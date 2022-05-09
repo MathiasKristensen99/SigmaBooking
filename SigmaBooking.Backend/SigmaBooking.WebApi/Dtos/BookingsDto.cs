@@ -2,5 +2,5 @@
 
 public class BookingsDto
 {
-    private List<BookingDto> Bookings { get; set; }
+    public List<BookingDto> List { get; set; }
 }

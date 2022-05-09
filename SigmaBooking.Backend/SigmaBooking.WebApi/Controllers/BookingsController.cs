@@ -52,6 +52,35 @@ namespace SigmaBooking.WebApi.Controllers
         {
             _bookingService.DeleteBooking(id);
         }
+        
+        [HttpGet]
+        public ActionResult<BookingsDto> GetBookings()
+        {
+            try
+            {
+                var bookings = _bookingService.GetAllBookings().Select(booking => new BookingDto
+                {
+                    Name = booking.Name,
+                    TableId = booking.TableId,
+                    Phone = booking.Phone,
+                    Email = booking.Email,
+                    StartTime = booking.StartTime,
+                    EndTime = booking.EndTime,
+                    IsEating = booking.IsEating,
+                    Description = booking.Description
+                }).ToList();
+
+                return Ok(new BookingsDto
+                {
+                    List = bookings
+                });
+
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
     
 }
