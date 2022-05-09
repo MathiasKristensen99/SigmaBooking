@@ -46,5 +46,12 @@ namespace SigmaBooking.WebApi.Controllers
                 return BadRequest(ae.Message);
             }
         }
+
+        [HttpDelete("{id}")]
+        public void DeleteBooking(string id)
+        {
+            _bookingService.DeleteBooking(id);
+        }
     }
+    
 }
