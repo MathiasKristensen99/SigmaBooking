@@ -79,7 +79,31 @@ public class TableRepository : ITableRepository
 
     public Table UpdateTable(Table table)
     {
-        throw new NotImplementedException();
+        var filter = Builders<TableEntity>.Filter.Eq("_id", ObjectId.Parse(table.Id));
+
+        var entity = new TableEntity
+        {
+            Id = table.Id,
+            Static = table.Static,
+            X = table.X,
+            Y = table.Y,
+            W = table.W,
+            H = table.H,
+            I = table.I
+            
+        };
+        _tablesCollection.ReplaceOne(filter, entity);
+
+        return new Table
+        {
+            Id = entity.Id,
+            Static = entity.Static,
+            X = entity.X,
+            Y = entity.Y,
+            W = entity.W,
+            H = entity.H,
+            I = entity.I
+        };
     }
 
     public void DeleteTable(string id)
