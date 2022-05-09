@@ -46,6 +46,7 @@
 
 <script>
 import { GridLayout, GridItem } from "vue-grid-layout";
+import axios from "axios";
 
 export default {
   components: {
@@ -54,13 +55,7 @@ export default {
   },
   data() {
     return {
-      layout: [
-        { x: 0, y: 0, w: 2, h: 2, i: "0" },
-        { x: 2, y: 0, w: 2, h: 2, i: "1" },
-        { x: 4, y: 0, w: 2, h: 2, i: "2" },
-        { x: 6, y: 0, w: 2, h: 2, i: "3" },
-        { x: 8, y: 0, w: 2, h: 2, i: "4" },
-      ],
+      layout: [],
       draggable: true,
       resizable: true,
       colNum: 12,
@@ -88,6 +83,23 @@ export default {
       const index = this.layout.map((item) => item.i).indexOf(val);
       this.layout.splice(index, 1);
     },
+    getLayout() {
+      axios
+        .get("https://localhost:7026/api/Tables")
+        .then((response) => {
+          for (const responseElement of response.data) {
+            this.layout.push(responseElement);
+          }
+          //this.layout.push(response.data);
+          console.log(this.layout);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  created() {
+    this.getLayout();
   },
 };
 </script>

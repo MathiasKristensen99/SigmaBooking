@@ -46,30 +46,20 @@ namespace SigmaBooking.WebApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<TablesDto> GetAllTables()
+        public TableDto[] GetAllTables()
         {
-            try
+            var tables = _tableService.GetAllTables().Select(table => new TableDto
             {
-                var tables = _tableService.GetAllTables().Select(table => new TableDto
-                {
-                    Id = table.Id,
-                    Static = table.Static,
-                    X = table.X,
-                    Y = table.Y,
-                    W = table.W,
-                    H = table.H,
-                    I = table.I
-                }).ToList();
+                Id = table.Id,
+                Static = table.Static,
+                X = table.X,
+                Y = table.Y,
+                W = table.W,
+                H = table.H,
+                I = table.I
+            }).ToArray();
 
-                return Ok(new TablesDto
-                {
-                    List = tables
-                });
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e.Message);
-            }
+            return tables;
         }
     }
 }
