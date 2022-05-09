@@ -81,6 +81,30 @@ namespace SigmaBooking.WebApi.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<BookingDto> GetBooking(string id)
+        {
+            try
+            {
+                var booking = _bookingService.GetBooking(id);
+                return Ok(new BookingDto
+                {
+                    Name = booking.Name,
+                    TableId = booking.TableId,
+                    Phone = booking.Phone,
+                    Email = booking.Email,
+                    StartTime = booking.StartTime,
+                    EndTime = booking.EndTime,
+                    IsEating = booking.IsEating,
+                    Description = booking.Description
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
     
 }
