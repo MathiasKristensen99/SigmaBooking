@@ -106,6 +106,16 @@ public class TableRepository : ITableRepository
         };
     }
 
+    public List<Table> UpdateTables(List<Table> tables)
+    {
+        foreach (var table in tables)
+        {
+            UpdateTable(table);
+        }
+
+        return GetAllTables();
+    }
+
     public void DeleteTable(string id)
     {
         _tablesCollection.DeleteOne(entity => entity.Id == id);

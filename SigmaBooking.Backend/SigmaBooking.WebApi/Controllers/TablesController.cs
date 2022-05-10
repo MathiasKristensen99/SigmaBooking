@@ -52,12 +52,30 @@ namespace SigmaBooking.WebApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<TablesDto> GetAllTables()
+        public TableDto[] GetAllTables()
         {
             
-            try
+            var tables = _tableService.GetAllTables().Select(table => new TableDto
             {
-                var tables = _tableService.GetAllTables().Select(table => new TableDto
+                Id = table.Id,
+                Static = table.Static,
+                X = table.X,
+                Y = table.Y,
+                W = table.W,
+                H = table.H,
+                I = table.I
+            }).ToArray();
+
+            return tables;
+        }
+
+        [HttpPut]
+        public ActionResult<TablesDto> UpdateTables([FromBody] TableDto[] tables)
+        {
+            var tablesFromDto = new List<Table>();
+            foreach (var table in tables)
+            {
+                tablesFromDto.Add(new Table
                 {
                     Id = table.Id,
                     Static = table.Static,
@@ -66,16 +84,27 @@ namespace SigmaBooking.WebApi.Controllers
                     W = table.W,
                     H = table.H,
                     I = table.I
-                }).ToList();
-
-                return Ok(new TablesDto
-                {
-                    List = tables
                 });
             }
-            catch (Exception e)
+
+            _tableService.UpdateTables(tablesFromDto);
+            
+            return Ok(new TablesDto
             {
-                return StatusCode(500, e.Message);
+                List = tables.ToList()
+            });
+        }
+
+        [HttpDelete("{id}")]
+        public void DeleteTable(string id)
+        {
+            try
+            {
+                _tableService.DeleteTable(id);
+            }
+            catch (ArgumentException ae)
+            {
+                StatusCode(500, ae.Message);
             }
         }
     }
