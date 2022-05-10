@@ -105,6 +105,23 @@ namespace SigmaBooking.WebApi.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpPut("{id}")]
+        public ActionResult<BookingDto> UpdateBooking(string id, BookingDto dto)
+        {
+            var booking = _bookingService.UpdateBooking(new Booking
+            {
+                Name = dto.Name,
+                TableId = dto.TableId,
+                Phone = dto.Phone,
+                Email = dto.Email,
+                StartTime = dto.StartTime,
+                EndTime = dto.EndTime,
+                IsEating = dto.IsEating,
+                Description = dto.Description
+            });
+            return Ok(dto);
+        }
     }
     
 }
