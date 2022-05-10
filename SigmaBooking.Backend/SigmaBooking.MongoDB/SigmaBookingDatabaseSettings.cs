@@ -6,4 +6,5 @@ public class SigmaBookingDatabaseSettings
     public string DatabaseName { get; set; } = null!;
     public string BookingsCollectionName { get; set; } = null!;
     public string TablesCollectionName { get; set; } = null!;
+    public string TableLayoutsCollectionName { get; set; } = null!;
 }

@@ -59,7 +59,7 @@ export default {
       layout: [],
       draggable: true,
       resizable: true,
-      colNum: 40,
+      colNum: 50,
       index: 0,
     };
   },
@@ -120,7 +120,6 @@ export default {
         });
     },
     updateLayout() {
-      console.log(this.layout);
       axios
         .put("https://localhost:7026/api/Tables/", this.layout)
         .then((response) => {
