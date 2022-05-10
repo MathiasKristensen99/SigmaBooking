@@ -44,17 +44,10 @@ namespace SigmaBooking.WebApi.Controllers
                 return BadRequest(ae.Message);
             }
         }
-        
-        [HttpDelete("{id}")]
-        public void DeleteTable(string id)
-        {
-            _tableService.DeleteTable(id);
-        }
 
         [HttpGet]
         public TableDto[] GetAllTables()
         {
-            
             var tables = _tableService.GetAllTables().Select(table => new TableDto
             {
                 Id = table.Id,
