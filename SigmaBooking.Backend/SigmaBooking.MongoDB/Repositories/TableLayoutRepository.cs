@@ -73,9 +73,72 @@ public class TableLayoutRepository : ITableLayoutRepository
         throw new NotImplementedException();
     }
 
-    public TableLayout GetTableLayout(DateTime dateTime)
+    public TableLayout GetTableLayout(string date)
     {
-        throw new NotImplementedException();
+        var tableLayout = _tablesLayoutCollection.Find(Builders<TableLayoutEntity>.Filter.Eq("Date", date))
+            .FirstOrDefault();
+        
+        var tables = new List<Table>();
+
+        if (tableLayout != null)
+        {
+            foreach (var tableId in tableLayout.TableIds)
+            {
+                var table = _tablesCollection.Find(Builders<TableEntity>.Filter.Eq("_id", ObjectId.Parse(tableId)))
+                    .FirstOrDefault();
+            
+                tables.Add(new Table
+                {
+                    Id = table.Id,
+                    Static = table.Static,
+                    X = table.X,
+                    Y = table.Y,
+                    W = table.W,
+                    H = table.H,
+                    I = table.I
+                });
+            }
+
+            return new TableLayout
+            {
+                Id = tableLayout.Id,
+                Date = tableLayout.Date,
+                IsDefault = tableLayout.IsDefault,
+                TableIds = tableLayout.TableIds,
+                Tables = tables
+            };
+        }
+        else
+        {
+            var defaultTableLayout = _tablesLayoutCollection.Find(Builders<TableLayoutEntity>.Filter.Eq("IsDefault", true))
+                .FirstOrDefault();
+            
+            foreach (var tableId in defaultTableLayout.TableIds)
+            {
+                var table = _tablesCollection.Find(Builders<TableEntity>.Filter.Eq("_id", ObjectId.Parse(tableId)))
+                    .FirstOrDefault();
+            
+                tables.Add(new Table
+                {
+                    Id = table.Id,
+                    Static = table.Static,
+                    X = table.X,
+                    Y = table.Y,
+                    W = table.W,
+                    H = table.H,
+                    I = table.I
+                });
+            }
+
+            return new TableLayout
+            {
+                Id = defaultTableLayout.Id,
+                IsDefault = defaultTableLayout.IsDefault,
+                Date = defaultTableLayout.Date,
+                TableIds = defaultTableLayout.TableIds,
+                Tables = tables
+            };
+        }
     }
 
     public void DeleteTableLayout(string id)

@@ -23,9 +23,9 @@ public class TableLayoutService : ITableLayoutService
         return _tableLayoutRepository.UpdateTableLayout(tableLayout);
     }
 
-    public TableLayout GetTableLayout(DateTime dateTime)
+    public TableLayout GetTableLayout(string date)
     {
-        return _tableLayoutRepository.GetTableLayout(dateTime);
+        return _tableLayoutRepository.GetTableLayout(date);
     }
 
     public void DeleteTableLayout(string id)

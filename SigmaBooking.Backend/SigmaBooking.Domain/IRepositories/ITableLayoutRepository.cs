@@ -8,7 +8,7 @@ public interface ITableLayoutRepository
 
     TableLayout UpdateTableLayout(TableLayout tableLayout);
 
-    TableLayout GetTableLayout(DateTime dateTime);
+    TableLayout GetTableLayout(string date);
 
     void DeleteTableLayout(string id);
 }
