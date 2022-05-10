@@ -60,6 +60,7 @@ namespace SigmaBooking.WebApi.Controllers
             {
                 var bookings = _bookingService.GetAllBookings().Select(booking => new BookingDto
                 {
+                    Id = booking.Id,
                     Name = booking.Name,
                     TableId = booking.TableId,
                     Phone = booking.Phone,
@@ -90,6 +91,7 @@ namespace SigmaBooking.WebApi.Controllers
                 var booking = _bookingService.GetBooking(id);
                 return Ok(new BookingDto
                 {
+                    Id = booking.Id,
                     Name = booking.Name,
                     TableId = booking.TableId,
                     Phone = booking.Phone,
@@ -111,6 +113,7 @@ namespace SigmaBooking.WebApi.Controllers
         {
             var booking = _bookingService.UpdateBooking(new Booking
             {
+                Id = id,
                 Name = dto.Name,
                 TableId = dto.TableId,
                 Phone = dto.Phone,
