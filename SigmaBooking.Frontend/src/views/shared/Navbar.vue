@@ -44,4 +44,14 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.wrapper {
+  margin: 120px;
+}
+.logo {
+  width: 210px;
+  height: 87px;
+  max-height: 87px;
+  max-width: 210px;
+}
+</style>
