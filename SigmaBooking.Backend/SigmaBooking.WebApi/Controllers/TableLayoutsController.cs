@@ -15,20 +15,37 @@ namespace SigmaBooking.WebApi.Controllers
     public class TableLayoutsController : ControllerBase
     {
         private readonly ITableLayoutService _tableLayoutService;
+        private readonly ITableService _tableService;
 
-        public TableLayoutsController(ITableLayoutService service)
+        public TableLayoutsController(ITableLayoutService service, ITableService tableService)
         {
             _tableLayoutService = service;
+            _tableService = tableService;
         }
 
         [HttpPost]
         public ActionResult<CreateTableLayoutDto> CreateTableLayout(CreateTableLayoutDto dto)
         {
+            var tables = new List<Table>();
+            
+            foreach (var table in dto.Tables)
+            {
+                tables.Add(_tableService.CreateTable(new Table
+                {
+                    Static = table.Static,
+                    X = table.X,
+                    Y = table.Y,
+                    W = table.W,
+                    H = table.H,
+                    I = table.I
+                }));
+            }
+            
             var tableLayoutFromDto = new TableLayout
             {
                 IsDefault = dto.IsDefault,
                 Date = dto.Date,
-                TableIds = dto.TableIds
+                Tables = tables
             };
 
             try
@@ -42,7 +59,7 @@ namespace SigmaBooking.WebApi.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("{date}")]
         public ActionResult<GetTableLayoutDto> GetTableLayout(string date)
         {
             try
@@ -65,7 +82,6 @@ namespace SigmaBooking.WebApi.Controllers
                     Id = tableLayout.Id,
                     IsDefault = tableLayout.IsDefault,
                     Date = tableLayout.Date,
-                    TableIds = tableLayout.TableIds,
                     Tables = tables
                 });
 
