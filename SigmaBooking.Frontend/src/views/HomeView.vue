@@ -10,8 +10,10 @@
         </div>
       </div>
     </div>
+    <p>{{ currentDate() }}</p>
     <button @click="addItem">Tilføj bord</button>
     <button @click="updateLayout">Gem bordopstilling</button>
+    <button @click="createLayout">Lav ny bordopstilling for denne dag</button>
     <input type="checkbox" v-model="draggable" /> Draggable
     <input type="checkbox" v-model="resizable" /> Resizable
     <grid-layout
@@ -105,14 +107,48 @@ export default {
           console.log(error);
         });
     },
+    createLayout() {
+      let tables = [];
+      for (const item of this.layout) {
+        const table = {
+          id: "string",
+          x: item.x,
+          y: item.y,
+          w: item.w,
+          h: item.h,
+          i: item.i,
+          static: item.static,
+        };
+        tables.push(table);
+      }
+      const tableLayout = {
+        isDefault: false,
+        date: this.currentDateHttpFormat().toString(),
+        tables: tables,
+      };
+      console.log(tableLayout);
+      axios
+        .post("https://localhost:7026/api/TableLayouts/", {
+          id: "",
+          isDefault: tableLayout.isDefault,
+          date: tableLayout.date,
+          tables: tableLayout.tables,
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     getLayout() {
       axios
-        .get("https://localhost:7026/api/Tables")
+        .get("https://localhost:7026/api/TableLayouts/" + this.currentDateHttpFormat().toString())
         .then((response) => {
-          for (const responseElement of response.data) {
+          console.log(response.data);
+          for (const responseElement of response.data.tables) {
             this.layout.push(responseElement);
           }
-          //this.layout.push(response.data);
           console.log(this.layout);
         })
         .catch((error) => {
@@ -128,6 +164,22 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    currentDate() {
+      const current = new Date();
+      const date = `${current.getDate()}/${
+        current.getMonth() + 1
+      }/${current.getFullYear()}`;
+      return date;
+    },
+    currentDateHttpFormat() {
+      let today = new Date();
+      const dd = String(today.getDate()).padStart(2, "0");
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const yyyy = today.getFullYear();
+
+      today = dd + "%2F" + mm + "%2F" + yyyy;
+      return today;
     },
   },
   created() {

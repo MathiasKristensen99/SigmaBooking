@@ -10,6 +10,7 @@ namespace SigmaBooking.MongoDB.Repositories;
 public class TableRepository : ITableRepository
 {
     private readonly IMongoCollection<TableEntity> _tablesCollection;
+    private readonly IMongoCollection<TableLayoutEntity> _tableLayoutCollection;
 
     public TableRepository(IOptions<SigmaBookingDatabaseSettings> options)
     {
@@ -21,6 +22,9 @@ public class TableRepository : ITableRepository
 
         _tablesCollection = mongoDatabase.GetCollection<TableEntity>(
             options.Value.TablesCollectionName);
+        
+        _tableLayoutCollection = mongoDatabase.GetCollection<TableLayoutEntity>(
+            options.Value.TableLayoutsCollectionName);
     }
 
     public Table CreateTable(Table table)
