@@ -134,4 +134,18 @@ public class BookingRepository : IBookingRepository
 
         return list;
     }
+
+    public List<Booking> GetBookingsByDate(DateTime dateTime)
+    {
+        var query = _bookingsCollection.Find(Builders<BookingEntity>.Filter.Eq("Date", dateTime.Date)).ToList();
+        
+        List<Booking> list = new List<Booking>();
+        
+        foreach (var booking in query)
+        {
+            list.Add(new Booking() {Id = booking.Id, TableId = booking.TableId, Name = booking.Name, Email = booking.Email, IsEating = booking.IsEating, Phone = booking.Phone, StartTime = booking.StartTime, EndTime = booking.EndTime, Description = booking.Description});
+        }
+        
+        return list;
+    }
 }

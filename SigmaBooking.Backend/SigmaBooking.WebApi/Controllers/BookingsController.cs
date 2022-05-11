@@ -108,6 +108,35 @@ namespace SigmaBooking.WebApi.Controllers
             }
         }
 
+        [HttpGet("date/{date}")]
+        public ActionResult<BookingsDto> GetBookingsByDate(DateTime date)
+        {
+            try
+            {
+                var bookings = _bookingService.GetBookingsByDate(date).Select(booking => new BookingDto
+                {
+                    Id = booking.Id,
+                    Name = booking.Name,
+                    Email = booking.Email,
+                    Phone = booking.Phone,
+                    Description = booking.Description,
+                    StartTime = booking.StartTime,
+                    EndTime = booking.EndTime,
+                    TableId = booking.TableId,
+                    IsEating = booking.IsEating
+                }).ToList();
+
+                return Ok(new BookingsDto
+                {
+                    List = bookings
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
         [HttpPut("{id}")]
         public ActionResult<BookingDto> UpdateBooking(string id, BookingDto dto)
         {

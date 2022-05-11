@@ -13,4 +13,6 @@ public interface IBookingRepository
     Booking UpdateBooking(Booking booking);
     
     List<Booking> GetAllBookings();
+    
+    List<Booking> GetBookingsByDate(DateTime dateTime);
 }
