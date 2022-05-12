@@ -1,6 +1,31 @@
 <template>
-
+  <div>
+    Kalender
+  </div>
+  <div>
+    Reservations
+  </div>
 </template>
+
+
+
+
+
+
+
+<style scoped>
+
+</style>
+
+
+
+
+
+
+
+
+
+
 
 <script>
 export default {
@@ -8,6 +33,3 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
