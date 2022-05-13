@@ -31,6 +31,7 @@ public class BookingRepository : IBookingRepository
             Name = booking.Name,
             Phone = booking.Phone,
             Email = booking.Email,
+            Date = booking.Date,
             StartTime = booking.StartTime,
             EndTime = booking.EndTime,
             IsEating = booking.IsEating,
@@ -46,6 +47,7 @@ public class BookingRepository : IBookingRepository
             Name = bookingEntity.Name,
             Phone = bookingEntity.Phone,
             Email = bookingEntity.Email,
+            Date = bookingEntity.Date,
             StartTime = bookingEntity.StartTime,
             EndTime = bookingEntity.EndTime,
             IsEating = bookingEntity.IsEating,
@@ -64,6 +66,7 @@ public class BookingRepository : IBookingRepository
             Name = booking.Name,
             Phone = booking.Phone,
             Email = booking.Email,
+            Date = booking.Date,
             StartTime = booking.StartTime,
             EndTime = booking.EndTime,
             IsEating = booking.IsEating,
@@ -87,6 +90,7 @@ public class BookingRepository : IBookingRepository
             Name = booking.Name,
             Phone = booking.Phone,
             Email = booking.Email,
+            Date = booking.Date,
             StartTime = booking.StartTime,
             EndTime = booking.EndTime,
             IsEating = booking.IsEating,
@@ -103,6 +107,7 @@ public class BookingRepository : IBookingRepository
             Email = entity.Email,
             IsEating = entity.IsEating, 
             Phone = entity.Phone,
+            Date = entity.Date,
             StartTime = entity.StartTime,
             EndTime = entity.EndTime,
             Description = entity.Description
@@ -120,6 +125,7 @@ public class BookingRepository : IBookingRepository
                 entity.Email,
                 entity.IsEating, 
                 entity.Phone,
+                entity.Date,
                 entity.StartTime,
                 entity.EndTime,
                 entity.Description
@@ -135,9 +141,9 @@ public class BookingRepository : IBookingRepository
         return list;
     }
 
-    public List<Booking> GetBookingsByDate(DateTime dateTime)
+    public List<Booking> GetBookingsByDate(string date)
     {
-        var query = _bookingsCollection.Find(Builders<BookingEntity>.Filter.Eq("Date", dateTime.Date)).ToList();
+        var query = _bookingsCollection.Find(Builders<BookingEntity>.Filter.Eq("Date", date.Replace("%2F", "/"))).ToList();
         
         List<Booking> list = new List<Booking>();
         

@@ -14,5 +14,5 @@ public interface IBookingService
     
     List<Booking> GetAllBookings();
 
-    List<Booking> GetBookingsByDate(DateTime dateTime);
+    List<Booking> GetBookingsByDate(string date);
 }

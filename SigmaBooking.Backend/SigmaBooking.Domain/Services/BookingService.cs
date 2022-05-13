@@ -38,8 +38,8 @@ public class BookingService : IBookingService
         return _repository.GetAllBookings();
     }
 
-    public List<Booking> GetBookingsByDate(DateTime dateTime)
+    public List<Booking> GetBookingsByDate(string date)
     {
-        return _repository.GetBookingsByDate(dateTime);
+        return _repository.GetBookingsByDate(date);
     }
 }
