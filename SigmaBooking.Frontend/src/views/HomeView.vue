@@ -16,7 +16,7 @@
     </button>
     <div class="form-check">
       <input class="form-check-input" type="checkbox" v-model="draggable" />
-      <label class="form-check-label">Dragable</label>
+      <label class="form-check-label">Draggable</label>
     </div>
     <div class="form-check">
       <input class="form-check-input" type="checkbox" v-model="resizable" />
