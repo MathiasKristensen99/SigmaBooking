@@ -12,8 +12,8 @@ public class TableServiceTest
         public void TableService_IsITableService()
         {
             var repoMock = new Mock<ITableRepository>();
-            var bookingService = new TableService(repoMock.Object);
-            Assert.IsAssignableFrom<IBookingService>(bookingService);
+            var tableService = new TableService(repoMock.Object);
+            Assert.IsAssignableFrom<ITableService>(tableService);
         }
     
     
