@@ -2,12 +2,26 @@
   <br />
   <div>
     <p>{{ currentDate() }}</p>
-    <button @click="addItem">Tilføj bord</button>
-    <button @click="updateLayout">Gem bordopstilling</button>
-    <button @click="createLayout">Lav ny bordopstilling for denne dag</button>
-    <button @click="adminLogin">Login</button>
-    <input type="checkbox" v-model="draggable" /> Draggable
-    <input type="checkbox" v-model="resizable" /> Resizable
+    <button class="btn btn-secondary me-2" type="button" @click="addItem">
+      Tilføj bord
+    </button>
+    <button class="btn btn-secondary me-2" type="button" @click="updateLayout">
+      Gem bordopstilling
+    </button>
+    <button class="btn btn-secondary me-2" type="button" @click="createLayout">
+      Lav ny bordopstilling for denne dag
+    </button>
+    <button class="btn btn-secondary me-3" type="button" @click="adminLogin">
+      Login
+    </button>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" v-model="draggable" />
+      <label class="form-check-label">Dragable</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" v-model="resizable" />
+      <label class="form-check-label">Resizable</label>
+    </div>
 
     <Datepicker v-model="date"></Datepicker>
     <grid-layout
@@ -209,6 +223,10 @@ export default {
 
 <style>
 /*************************************/
+
+.btn-primary {
+  background-color: black;
+}
 
 .remove {
   position: absolute;
