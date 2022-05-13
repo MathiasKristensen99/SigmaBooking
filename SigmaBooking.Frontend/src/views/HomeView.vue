@@ -5,7 +5,7 @@
     <button class="btn btn-secondary me-2" type="button" @click="addItem">
       Tilføj bord
     </button>
-    <button class="btn btn-secondary me-2" type="button" @click="updateLayout">
+    <button class="btn btn-secondary me-2" type="button" @click="updateTableLayout">
       Gem bordopstilling
     </button>
     <button class="btn btn-secondary me-2" type="button" @click="createLayout">
@@ -22,7 +22,6 @@
       <input class="form-check-input" type="checkbox" v-model="resizable" />
       <label class="form-check-label">Resizable</label>
     </div>
-
     <Datepicker v-model="date"></Datepicker>
     <grid-layout
       v-model:layout="layout"
@@ -76,6 +75,8 @@ export default {
       colNum: 50,
       index: 0,
       layoutId: "",
+      layoutDate: "",
+      isDefault: true,
       date: null,
     };
   },
@@ -104,19 +105,7 @@ export default {
         })
         .then((response) => {
           this.layout.push(response.data);
-          axios
-            .put("https://localhost:7026/api/TableLayouts/" + this.layoutId, {
-              id: this.layoutId,
-              isDefault: true,
-              date: "",
-              tables: this.layout,
-            })
-            .then((response) => {
-              console.log(response.data);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+          this.updateTableLayout();
         })
         .catch((error) => {
           console.log(error);
@@ -129,6 +118,7 @@ export default {
           console.log(response.data);
           const index = this.layout.map((item) => item.id).indexOf(val);
           this.layout.splice(index, 1);
+          this.updateTableLayout();
         })
         .catch((error) => {
           console.log(error);
@@ -178,6 +168,8 @@ export default {
         )
         .then((response) => {
           console.log(response.data);
+          this.layoutDate = response.data.date;
+          this.isDefault = response.data.isDefault;
           this.layoutId = response.data.id;
           console.log(this.layoutId);
           for (const responseElement of response.data.tables) {
@@ -188,7 +180,22 @@ export default {
           console.log(error);
         });
     },
-    updateLayout() {
+    updateTableLayout() {
+      axios
+        .put("https://localhost:7026/api/TableLayouts/" + this.layoutId, {
+          id: this.layoutId,
+          isDefault: this.isDefault,
+          date: this.layoutDate,
+          tables: this.layout,
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    updateTables() {
       axios
         .put("https://localhost:7026/api/Tables/", this.layout)
         .then((response) => {
