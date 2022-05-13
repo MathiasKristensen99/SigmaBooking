@@ -5,8 +5,11 @@
     <button @click="addItem">Tilføj bord</button>
     <button @click="updateLayout">Gem bordopstilling</button>
     <button @click="createLayout">Lav ny bordopstilling for denne dag</button>
+    <button @click="adminLogin">Login</button>
     <input type="checkbox" v-model="draggable" /> Draggable
     <input type="checkbox" v-model="resizable" /> Resizable
+
+    <Datepicker v-model="date"></Datepicker>
     <grid-layout
       v-model:layout="layout"
       :col-num="colNum"
@@ -41,12 +44,16 @@
 <script>
 import { GridLayout, GridItem } from "vue-grid-layout";
 import axios from "axios";
+import Datepicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 
 export default {
   components: {
     GridLayout,
     GridItem,
+    Datepicker,
   },
+
   data() {
     return {
       layout: [],
@@ -55,6 +62,7 @@ export default {
       colNum: 50,
       index: 0,
       layoutId: "",
+      date: null,
     };
   },
   mounted() {
@@ -146,6 +154,8 @@ export default {
           console.log(error);
         });
     },
+    adminLogin() {},
+
     getLayout() {
       axios
         .get(

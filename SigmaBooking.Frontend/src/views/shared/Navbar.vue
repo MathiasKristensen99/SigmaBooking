@@ -23,13 +23,7 @@
                 <a class="nav-link" href="/home">Home</a>
               </li>
               <li class="nav-item">
-                <RouterLink to="/reservations" class="nav-link">Reservations</RouterLink>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/about">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
+                <a class="nav-link" href="/reservations">Reservations</a>
               </li>
             </ul>
           </div>
