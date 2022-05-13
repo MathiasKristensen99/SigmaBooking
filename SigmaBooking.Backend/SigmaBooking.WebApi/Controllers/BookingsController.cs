@@ -30,6 +30,7 @@ namespace SigmaBooking.WebApi.Controllers
                 TableId = dto.TableId,
                 Phone = dto.Phone,
                 Email = dto.Email,
+                Date = dto.Date,
                 StartTime = dto.StartTime,
                 EndTime = dto.EndTime,
                 IsEating = dto.IsEating,
@@ -65,6 +66,7 @@ namespace SigmaBooking.WebApi.Controllers
                     TableId = booking.TableId,
                     Phone = booking.Phone,
                     Email = booking.Email,
+                    Date = booking.Date,
                     StartTime = booking.StartTime,
                     EndTime = booking.EndTime,
                     IsEating = booking.IsEating,
@@ -96,10 +98,41 @@ namespace SigmaBooking.WebApi.Controllers
                     TableId = booking.TableId,
                     Phone = booking.Phone,
                     Email = booking.Email,
+                    Date = booking.Date,
                     StartTime = booking.StartTime,
                     EndTime = booking.EndTime,
                     IsEating = booking.IsEating,
                     Description = booking.Description
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet("date/{date}")]
+        public ActionResult<BookingsDto> GetBookingsByDate(string date)
+        {
+            try
+            {
+                var bookings = _bookingService.GetBookingsByDate(date).Select(booking => new BookingDto
+                {
+                    Id = booking.Id,
+                    Name = booking.Name,
+                    Email = booking.Email,
+                    Phone = booking.Phone,
+                    Description = booking.Description,
+                    Date = booking.Date,
+                    StartTime = booking.StartTime,
+                    EndTime = booking.EndTime,
+                    TableId = booking.TableId,
+                    IsEating = booking.IsEating
+                }).ToList();
+
+                return Ok(new BookingsDto
+                {
+                    List = bookings
                 });
             }
             catch (Exception e)
@@ -118,6 +151,7 @@ namespace SigmaBooking.WebApi.Controllers
                 TableId = dto.TableId,
                 Phone = dto.Phone,
                 Email = dto.Email,
+                Date = dto.Date,
                 StartTime = dto.StartTime,
                 EndTime = dto.EndTime,
                 IsEating = dto.IsEating,

@@ -1,15 +1,6 @@
 <template>
   <br />
   <div>
-    <div class="layoutJSON">
-      Displayed as <code>[x, y, w, h]</code>:
-      <div class="columns">
-        <div class="layoutItem" v-for="item in layout" :key="item.i">
-          <b>{{ item.i }}</b
-          >: [{{ item.x }}, {{ item.y }}, {{ item.w }}, {{ item.h }}]
-        </div>
-      </div>
-    </div>
     <p>{{ currentDate() }}</p>
     <button @click="addItem">Tilføj bord</button>
     <button @click="updateLayout">Gem bordopstilling</button>
@@ -189,19 +180,6 @@ export default {
 </script>
 
 <style>
-.layoutJSON {
-  background: #ddd;
-  border: 1px solid black;
-  margin-top: 10px;
-  padding: 10px;
-}
-
-.columns {
-  -moz-columns: 120px;
-  -webkit-columns: 120px;
-  columns: 120px;
-}
-
 /*************************************/
 
 .remove {

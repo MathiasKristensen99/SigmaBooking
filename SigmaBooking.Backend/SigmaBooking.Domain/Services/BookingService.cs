@@ -37,4 +37,9 @@ public class BookingService : IBookingService
     {
         return _repository.GetAllBookings();
     }
+
+    public List<Booking> GetBookingsByDate(string date)
+    {
+        return _repository.GetBookingsByDate(date);
+    }
 }
