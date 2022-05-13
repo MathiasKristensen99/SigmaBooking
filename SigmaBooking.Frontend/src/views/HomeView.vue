@@ -8,6 +8,8 @@
     <button @click="adminLogin">Login</button>
     <input type="checkbox" v-model="draggable" /> Draggable
     <input type="checkbox" v-model="resizable" /> Resizable
+
+    <Datepicker v-model="date"></Datepicker>
     <grid-layout
       v-model:layout="layout"
       :col-num="colNum"
@@ -42,12 +44,16 @@
 <script>
 import { GridLayout, GridItem } from "vue-grid-layout";
 import axios from "axios";
+import Datepicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 
 export default {
   components: {
     GridLayout,
     GridItem,
+    Datepicker,
   },
+
   data() {
     return {
       layout: [],
@@ -55,6 +61,7 @@ export default {
       resizable: true,
       colNum: 50,
       index: 0,
+      date: null,
     };
   },
   mounted() {
