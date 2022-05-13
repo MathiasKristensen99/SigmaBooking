@@ -5,6 +5,7 @@
     <button @click="addItem">Tilføj bord</button>
     <button @click="updateLayout">Gem bordopstilling</button>
     <button @click="createLayout">Lav ny bordopstilling for denne dag</button>
+    <button @click="adminLogin">Login</button>
     <input type="checkbox" v-model="draggable" /> Draggable
     <input type="checkbox" v-model="resizable" /> Resizable
     <grid-layout
@@ -132,9 +133,14 @@ export default {
           console.log(error);
         });
     },
+    adminLogin() {},
+
     getLayout() {
       axios
-        .get("https://localhost:7026/api/TableLayouts/" + this.currentDateHttpFormat().toString())
+        .get(
+          "https://localhost:7026/api/TableLayouts/" +
+            this.currentDateHttpFormat().toString()
+        )
         .then((response) => {
           console.log(response.data);
           for (const responseElement of response.data.tables) {
