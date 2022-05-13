@@ -20,7 +20,7 @@
           <div class="collapse navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <RouterLink to="/home" class="nav-link">Home</RouterLink>
+                <a class="nav-link" href="/home">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/about">About</a>
