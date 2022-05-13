@@ -77,7 +77,42 @@ public class TableLayoutRepository : ITableLayoutRepository
 
     public TableLayout UpdateTableLayout(TableLayout tableLayout)
     {
-        throw new NotImplementedException();
+        var filter = Builders<TableLayoutEntity>.Filter.Eq("_id", ObjectId.Parse(tableLayout.Id));
+
+        var tableIds = tableLayout.Tables.Select(table => table.Id).ToList();
+
+        var entity = new TableLayoutEntity
+        {
+            Id = tableLayout.Id,
+            Date = tableLayout.Date,
+            IsDefault = tableLayout.IsDefault,
+            TableIds = tableIds
+        };
+
+        _tablesLayoutCollection.ReplaceOne(filter, entity);
+        
+        var tables = entity.TableIds.Select(tableId => _tablesCollection.Find(Builders<TableEntity>.Filter.Eq("_id", ObjectId.Parse(tableId)))
+                .FirstOrDefault())
+            .Select(table => new Table
+            {
+                Id = table.Id,
+                Static = table.Static,
+                X = table.X,
+                Y = table.Y,
+                W = table.W,
+                H = table.H,
+                I = table.I
+            })
+            .ToList();
+
+        return new TableLayout
+        {
+            Id = entity.Id,
+            Date = entity.Date,
+            IsDefault = entity.IsDefault,
+            Tables = tables,
+            TableIds = entity.TableIds
+        };
     }
 
     public TableLayout GetTableLayout(string date)
@@ -89,12 +124,9 @@ public class TableLayoutRepository : ITableLayoutRepository
 
         if (tableLayout != null)
         {
-            foreach (var tableId in tableLayout.TableIds)
-            {
-                var table = _tablesCollection.Find(Builders<TableEntity>.Filter.Eq("_id", ObjectId.Parse(tableId)))
-                    .FirstOrDefault();
-            
-                tables.Add(new Table
+            tables.AddRange(tableLayout.TableIds.Select(tableId => _tablesCollection.Find(Builders<TableEntity>.Filter.Eq("_id", ObjectId.Parse(tableId)))
+                    .FirstOrDefault())
+                .Select(table => new Table
                 {
                     Id = table.Id,
                     Static = table.Static,
@@ -103,8 +135,7 @@ public class TableLayoutRepository : ITableLayoutRepository
                     W = table.W,
                     H = table.H,
                     I = table.I
-                });
-            }
+                }));
 
             return new TableLayout
             {
@@ -119,13 +150,10 @@ public class TableLayoutRepository : ITableLayoutRepository
         {
             var defaultTableLayout = _tablesLayoutCollection.Find(Builders<TableLayoutEntity>.Filter.Eq("IsDefault", true))
                 .FirstOrDefault();
-            
-            foreach (var tableId in defaultTableLayout.TableIds)
-            {
-                var table = _tablesCollection.Find(Builders<TableEntity>.Filter.Eq("_id", ObjectId.Parse(tableId)))
-                    .FirstOrDefault();
-            
-                tables.Add(new Table
+
+            tables.AddRange(defaultTableLayout.TableIds.Select(tableId => _tablesCollection.Find(Builders<TableEntity>.Filter.Eq("_id", ObjectId.Parse(tableId)))
+                    .FirstOrDefault())
+                .Select(table => new Table
                 {
                     Id = table.Id,
                     Static = table.Static,
@@ -134,8 +162,7 @@ public class TableLayoutRepository : ITableLayoutRepository
                     W = table.W,
                     H = table.H,
                     I = table.I
-                });
-            }
+                }));
 
             return new TableLayout
             {

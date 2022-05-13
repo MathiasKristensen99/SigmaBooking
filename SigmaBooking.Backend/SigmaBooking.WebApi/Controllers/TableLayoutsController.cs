@@ -91,5 +91,38 @@ namespace SigmaBooking.WebApi.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+        [HttpPut("{id}")]
+        public ActionResult<TableLayoutDto> UpdateTableLayout(string id, TableLayoutDto dto)
+        {
+            var tables = dto.Tables.Select(table => new Table
+                {
+                    Id = table.Id,
+                    Static = table.Static,
+                    X = table.X,
+                    Y = table.Y,
+                    W = table.W,
+                    H = table.H,
+                    I = table.I
+                })
+                .ToList();
+
+            try
+            {
+                var tableLayout = _tableLayoutService.UpdateTableLayout(new TableLayout
+                {
+                    Id = id,
+                    Date = dto.Date,
+                    IsDefault = dto.IsDefault,
+                    Tables = tables
+                });
+
+                return Ok(tableLayout);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }

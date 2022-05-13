@@ -54,6 +54,7 @@ export default {
       resizable: true,
       colNum: 50,
       index: 0,
+      layoutId: "",
     };
   },
   mounted() {
@@ -81,6 +82,19 @@ export default {
         })
         .then((response) => {
           this.layout.push(response.data);
+          axios
+            .put("https://localhost:7026/api/TableLayouts/" + this.layoutId, {
+              id: this.layoutId,
+              isDefault: true,
+              date: "",
+              tables: this.layout,
+            })
+            .then((response) => {
+              console.log(response.data);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         })
         .catch((error) => {
           console.log(error);
@@ -134,13 +148,17 @@ export default {
     },
     getLayout() {
       axios
-        .get("https://localhost:7026/api/TableLayouts/" + this.currentDateHttpFormat().toString())
+        .get(
+          "https://localhost:7026/api/TableLayouts/" +
+            this.currentDateHttpFormat().toString()
+        )
         .then((response) => {
           console.log(response.data);
+          this.layoutId = response.data.id;
+          console.log(this.layoutId);
           for (const responseElement of response.data.tables) {
             this.layout.push(responseElement);
           }
-          console.log(this.layout);
         })
         .catch((error) => {
           console.log(error);
