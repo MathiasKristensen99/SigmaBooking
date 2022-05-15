@@ -1,7 +1,13 @@
 <template>
-  <div>Kalender</div>
-  <Datepicker v-model="date"></Datepicker>
-  <div>Reservations</div>
+  <div class="col-3">
+    <div>
+      <h2>Kalender</h2>
+      <Datepicker v-model="date"></Datepicker>
+    </div>
+    <div>
+      <h2>Reservations</h2>
+    </div>
+  </div>
 </template>
 
 <style scoped></style>

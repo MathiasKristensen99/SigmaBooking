@@ -22,8 +22,11 @@
       <input class="form-check-input" type="checkbox" v-model="resizable" />
       <label class="form-check-label">Resizable</label>
     </div>
-
-    <Datepicker v-model="date"></Datepicker>
+    <div class="col-3">
+      <div>
+        <Datepicker v-model="date"></Datepicker>
+      </div>
+    </div>
     <grid-layout
       v-model:layout="layout"
       :col-num="colNum"
@@ -217,6 +220,14 @@ export default {
   },
   created() {
     this.getLayout();
+  },
+  isLoggedIn() {},
+
+  enableButtons() {
+    const button = document.querySelectorAll("button");
+    if (this.isLoggedIn() === 1) {
+      button.disabled = false;
+    } else return (button.disabled = true);
   },
 };
 </script>
