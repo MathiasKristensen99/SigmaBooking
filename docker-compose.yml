@@ -4,7 +4,7 @@ services:
   api:
     build:
       context: "SigmaBooking.Backend/SigmaBooking.WebApi"
-    image: "localhost:7002/SigmaBooking-api:${IMAGE_TAG}"
+    image: "localhost:7002/sigmabooking-api:${IMAGE_TAG}"
     container_name: "${API_CONT_NAME}"
     ports:
       - "${API_PORT}:80"   
