@@ -14,12 +14,23 @@
     >
       Gem bordopstilling
     </button>
-    <button class="btn btn-secondary me-2" type="button" @click="createLayout">
+    <button
+      class="btn btn-secondary me-2"
+      type="button"
+      @click="checkCredLogin"
+      data-bs-toggle="modal"
+      data-bs-target="#loginModal"
+    >
       Lav ny bordopstilling for denne dag
     </button>
-    <button class="btn btn-secondary me-3" type="button" @click="adminLogin">
-      Login
-    </button>
+    <div class="modal" id="loginModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h4 class="modal-title">Enter Credentials</h4>
+            <button type="button" @click=""
+
     <div class="form-check">
       <input class="form-check-input" type="checkbox" v-model="draggable" />
       <label class="form-check-label">Draggable</label>
@@ -78,7 +89,11 @@
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary me-3" data-bs-dismiss="modal">
+          <button
+            type="button"
+            class="btn btn-secondary me-3"
+            data-bs-dismiss="modal"
+          >
             Luk
           </button>
         </div>
@@ -157,6 +172,9 @@ export default {
           console.log(error);
         });
     },
+
+    checkCredLogin() {},
+
     createLayout() {
       let tables = [];
       for (const item of this.layout) {
