@@ -1,69 +1,69 @@
 <template>
-  <br />
-  <div>
-    <p>{{ currentDate() }}</p>
-    <button class="btn btn-secondary me-2" type="button" @click="addItem">
+  <p class="date">{{ currentDate() }}</p>
+  <div class="row">
+    <button class="btn btn-secondary me-2 col-1" type="button" @click="addItem">
       Tilføj bord
     </button>
     <button
-      class="btn btn-secondary me-2"
+      class="btn btn-secondary me-2 col-1"
       type="button"
-      @click="updateTableLayout"
       data-bs-toggle="modal"
       data-bs-target="#myModal"
+      @click="updateTableLayout"
     >
       Gem bordopstilling
     </button>
-    <button class="btn btn-secondary me-2" type="button" @click="createLayout">
-      Lav ny bordopstilling for denne dag
+    <button
+      class="btn btn-secondary me-2 col-1"
+      type="button"
+      @click="createLayout"
+    >
+      Ny Bordopstilling
     </button>
-    <button class="btn btn-secondary me-3" type="button" @click="adminLogin">
-      Login
-    </button>
-    <div class="form-check">
+    <div class="form-check col-1">
       <input class="form-check-input" type="checkbox" v-model="draggable" />
       <label class="form-check-label">Draggable</label>
     </div>
-    <div class="form-check">
+    <div class="form-check col-1">
       <input class="form-check-input" type="checkbox" v-model="resizable" />
       <label class="form-check-label">Resizable</label>
     </div>
 
-    <div class="col-3">
+    <div class="col-1">
       <div>
         <Datepicker v-model="date"></Datepicker>
       </div>
     </div>
-
-    <grid-layout
-      v-model:layout="layout"
-      :col-num="colNum"
-      :row-height="40"
-      :is-draggable="draggable"
-      :is-resizable="resizable"
-      :responsive="false"
-      :vertical-compact="false"
-      :prevent-collision="true"
-      :use-css-transforms="true"
-    >
-      <grid-item
-        v-for="item in layout"
-        :static="item.static"
-        :x="item.x"
-        :y="item.y"
-        :w="item.w"
-        :h="item.h"
-        :i="item.i"
-      >
-        <span class="text"
-          >{{ item.i }}
-          <br />
-          <button class="click">Click</button>
-        </span>
-        <span class="remove" @click="removeItem(item.id)">x</span>
-      </grid-item>
-    </grid-layout>
   </div>
+
+  <grid-layout
+    v-model:layout="layout"
+    :col-num="colNum"
+    :row-height="40"
+    :is-draggable="draggable"
+    :is-resizable="resizable"
+    :responsive="false"
+    :vertical-compact="false"
+    :prevent-collision="true"
+    :use-css-transforms="true"
+  >
+    <grid-item
+      v-for="item in layout"
+      :static="item.static"
+      :x="item.x"
+      :y="item.y"
+      :w="item.w"
+      :h="item.h"
+      :i="item.i"
+    >
+      <span class="text"
+        >{{ item.i }}
+        <br />
+        <button class="click">Click</button>
+      </span>
+      <span class="remove" @click="removeItem(item.id)">x</span>
+    </grid-item>
+  </grid-layout>
   <div class="modal" id="myModal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -78,7 +78,11 @@
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary me-3" data-bs-dismiss="modal">
+          <button
+            type="button"
+            class="btn btn-secondary me-3"
+            data-bs-dismiss="modal"
+          >
             Luk
           </button>
         </div>
@@ -269,6 +273,10 @@ export default {
 
 <style>
 /*************************************/
+
+.date {
+  text-align: center;
+}
 
 .btn-primary {
   background-color: black;
