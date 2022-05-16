@@ -20,16 +20,18 @@
     >
       Ny Bordopstilling
     </button>
-    <div class="form-check col-2">
-      <input class="form-check-input" type="checkbox" v-model="draggable" />
-      <label class="form-check-label">Draggable</label>
-    </div>
-    <div class="form-check col-2">
-      <input class="form-check-input" type="checkbox" v-model="resizable" />
-      <label class="form-check-label">Resizable</label>
+    <div class="col-2">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" v-model="draggable" />
+        <label class="form-check-label">Draggable</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" v-model="resizable" />
+        <label class="form-check-label">Resizable</label>
+      </div>
     </div>
 
-    <div class="col-2">
+    <div class="col">
       <div>
         <Datepicker v-model="date"></Datepicker>
       </div>
