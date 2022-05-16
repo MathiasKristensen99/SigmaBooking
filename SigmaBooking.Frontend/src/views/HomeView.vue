@@ -1,11 +1,11 @@
 <template>
   <p class="date">{{ currentDate() }}</p>
   <div class="row">
-    <button class="btn btn-secondary me-2 col-1" type="button" @click="addItem">
+    <button class="btn btn-secondary me-2 col" type="button" @click="addItem">
       Tilføj bord
     </button>
     <button
-      class="btn btn-secondary me-2 col-1"
+      class="btn btn-secondary me-2 col"
       type="button"
       data-bs-toggle="modal"
       data-bs-target="#myModal"
@@ -14,22 +14,22 @@
       Gem bordopstilling
     </button>
     <button
-      class="btn btn-secondary me-2 col-1"
+      class="btn btn-secondary me-2 col"
       type="button"
       @click="createLayout"
     >
       Ny Bordopstilling
     </button>
-    <div class="form-check col-1">
+    <div class="form-check col-2">
       <input class="form-check-input" type="checkbox" v-model="draggable" />
       <label class="form-check-label">Draggable</label>
     </div>
-    <div class="form-check col-1">
+    <div class="form-check col-2">
       <input class="form-check-input" type="checkbox" v-model="resizable" />
       <label class="form-check-label">Resizable</label>
     </div>
 
-    <div class="col-1">
+    <div class="col-2">
       <div>
         <Datepicker v-model="date"></Datepicker>
       </div>
