@@ -35,6 +35,7 @@ public class BookingRepository : IBookingRepository
             Name = booking.Name,
             Phone = booking.Phone,
             Email = booking.Email,
+            PeopleCount = booking.PeopleCount,
             Date = booking.Date,
             StartTime = booking.StartTime,
             EndTime = booking.EndTime,
@@ -51,6 +52,7 @@ public class BookingRepository : IBookingRepository
             Name = bookingEntity.Name,
             Phone = bookingEntity.Phone,
             Email = bookingEntity.Email,
+            PeopleCount = bookingEntity.PeopleCount,
             Date = bookingEntity.Date,
             StartTime = bookingEntity.StartTime,
             EndTime = bookingEntity.EndTime,
@@ -70,6 +72,7 @@ public class BookingRepository : IBookingRepository
             Name = booking.Name,
             Phone = booking.Phone,
             Email = booking.Email,
+            PeopleCount = booking.PeopleCount,
             Date = booking.Date,
             StartTime = booking.StartTime,
             EndTime = booking.EndTime,
@@ -94,6 +97,7 @@ public class BookingRepository : IBookingRepository
             Name = booking.Name,
             Phone = booking.Phone,
             Email = booking.Email,
+            PeopleCount = booking.PeopleCount,
             Date = booking.Date,
             StartTime = booking.StartTime,
             EndTime = booking.EndTime,
@@ -109,6 +113,7 @@ public class BookingRepository : IBookingRepository
             TableId = entity.TableId,
             Name = entity.Name,
             Email = entity.Email,
+            PeopleCount = entity.PeopleCount,
             IsEating = entity.IsEating, 
             Phone = entity.Phone,
             Date = entity.Date,
@@ -127,7 +132,8 @@ public class BookingRepository : IBookingRepository
                 entity.TableId,
                 entity.Name,
                 entity.Email,
-                entity.IsEating, 
+                entity.IsEating,
+                entity.PeopleCount,
                 entity.Phone,
                 entity.Date,
                 entity.StartTime,
@@ -139,7 +145,7 @@ public class BookingRepository : IBookingRepository
         
         foreach (var booking in query)
         {
-            list.Add(new Booking() {Id = booking.Id, TableId = booking.TableId, Name = booking.Name, Email = booking.Email, IsEating = booking.IsEating, Phone = booking.Phone, StartTime = booking.StartTime, EndTime = booking.EndTime, Description = booking.Description});
+            list.Add(new Booking() {Id = booking.Id, TableId = booking.TableId, Name = booking.Name, Email = booking.Email, PeopleCount = booking.PeopleCount, IsEating = booking.IsEating, Phone = booking.Phone, StartTime = booking.StartTime, EndTime = booking.EndTime, Description = booking.Description});
         }
 
         return list;
@@ -153,7 +159,7 @@ public class BookingRepository : IBookingRepository
         
         foreach (var booking in query)
         {
-            list.Add(new Booking() {Id = booking.Id, TableId = booking.TableId, Name = booking.Name, Email = booking.Email, IsEating = booking.IsEating, Phone = booking.Phone, Date = booking.Date, StartTime = booking.StartTime, EndTime = booking.EndTime, Description = booking.Description});
+            list.Add(new Booking() {Id = booking.Id, TableId = booking.TableId, Name = booking.Name, Email = booking.Email, PeopleCount = booking.PeopleCount, IsEating = booking.IsEating, Phone = booking.Phone, Date = booking.Date, StartTime = booking.StartTime, EndTime = booking.EndTime, Description = booking.Description});
         }
         
         return list;
@@ -187,6 +193,7 @@ public class BookingRepository : IBookingRepository
                 Name = booking.Name,
                 Email = booking.Email,
                 IsEating = booking.IsEating,
+                PeopleCount = booking.PeopleCount,
                 Phone = booking.Phone,
                 Date = booking.Date,
                 StartTime = booking.StartTime,

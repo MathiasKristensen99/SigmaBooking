@@ -8,6 +8,7 @@ public class BookingDto
     public string Name { get; set; }
     public string Phone { get; set; }
     public string Email { get; set; }
+    public int PeopleCount { get; set; }
     public string Date { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
