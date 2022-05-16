@@ -3,6 +3,7 @@
 public class BookingDto
 {
     public string Id { get; set; }
+    public TableDto Table { get; set; }
     public string TableId { get; set; }
     public string Name { get; set; }
     public string Phone { get; set; }

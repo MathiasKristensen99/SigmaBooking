@@ -159,6 +159,46 @@ namespace SigmaBooking.WebApi.Controllers
             });
             return Ok(dto);
         }
+
+        [HttpGet("date/{date}/table/{id}")]
+        public ActionResult<BookingDto> GetBookingByDateAndTable(string id, string date)
+        {
+            try
+            {
+                var bookings = _bookingService.GetBookingsByTableAndDate(id, date).Select(booking => new BookingDto
+                {
+                    Id = booking.Id,
+                    Name = booking.Name,
+                    Table = new TableDto
+                    {
+                        Id = booking.Table.Id,
+                        X = booking.Table.X,
+                        Y = booking.Table.Y,
+                        H = booking.Table.H,
+                        W = booking.Table.W,
+                        I = booking.Table.I,
+                        Static = booking.Table.Static
+                    },
+                    Email = booking.Email,
+                    Phone = booking.Phone,
+                    Description = booking.Description,
+                    Date = booking.Date,
+                    StartTime = booking.StartTime,
+                    EndTime = booking.EndTime,
+                    TableId = booking.TableId,
+                    IsEating = booking.IsEating
+                }).ToList();
+
+                return Ok(new BookingsDto
+                {
+                    List = bookings
+                });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
-    
 }

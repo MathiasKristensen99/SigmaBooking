@@ -29,12 +29,7 @@ public class TableLayoutRepository : ITableLayoutRepository
     
     public TableLayout CreateTableLayout(TableLayout tableLayout)
     {
-        var tableIds = new List<string>();
-        
-        foreach (var table in tableLayout.Tables)
-        {
-            tableIds.Add(table.Id);
-        }
+        var tableIds = tableLayout.Tables.Select(table => table.Id).ToList();
 
         var tableLayoutEntity = new TableLayoutEntity
         {

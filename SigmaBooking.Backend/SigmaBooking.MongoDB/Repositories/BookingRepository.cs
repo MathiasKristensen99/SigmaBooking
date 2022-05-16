@@ -10,6 +10,7 @@ namespace SigmaBooking.MongoDB.Repositories;
 public class BookingRepository : IBookingRepository
 {
     private readonly IMongoCollection<BookingEntity> _bookingsCollection;
+    private readonly IMongoCollection<TableEntity> _tablesCollection;
 
     public BookingRepository(IOptions<SigmaBookingDatabaseSettings> options)
     {
@@ -21,6 +22,9 @@ public class BookingRepository : IBookingRepository
 
         _bookingsCollection = mongoDatabase.GetCollection<BookingEntity>(
             options.Value.BookingsCollectionName);
+        
+        _tablesCollection = mongoDatabase.GetCollection<TableEntity>(
+            options.Value.TablesCollectionName);
     }
     public Booking CreateBooking(Booking booking)
     {
@@ -131,7 +135,7 @@ public class BookingRepository : IBookingRepository
                 entity.Description
             });
 
-        List<Booking> list = new List<Booking>();
+        var list = new List<Booking>();
         
         foreach (var booking in query)
         {
@@ -145,13 +149,52 @@ public class BookingRepository : IBookingRepository
     {
         var query = _bookingsCollection.Find(Builders<BookingEntity>.Filter.Eq("Date", date.Replace("%2F", "/"))).ToList();
         
-        List<Booking> list = new List<Booking>();
+        var list = new List<Booking>();
         
         foreach (var booking in query)
         {
-            list.Add(new Booking() {Id = booking.Id, TableId = booking.TableId, Name = booking.Name, Email = booking.Email, IsEating = booking.IsEating, Phone = booking.Phone, StartTime = booking.StartTime, EndTime = booking.EndTime, Description = booking.Description});
+            list.Add(new Booking() {Id = booking.Id, TableId = booking.TableId, Name = booking.Name, Email = booking.Email, IsEating = booking.IsEating, Phone = booking.Phone, Date = booking.Date, StartTime = booking.StartTime, EndTime = booking.EndTime, Description = booking.Description});
         }
         
+        return list;
+    }
+
+    public List<Booking> GetBookingsByTableAndDate(string id, string date)
+    {
+        var filter = Builders<BookingEntity>.Filter.Or(
+            Builders<BookingEntity>.Filter.Where(entity => entity.TableId.Equals(id)),
+            Builders<BookingEntity>.Filter.Where(entity => entity.Date.Equals(date)));
+
+        var query = _bookingsCollection.Find(filter).ToList();
+
+        var table = _tablesCollection.Find(Builders<TableEntity>.Filter.Eq("_id", ObjectId.Parse(id)))
+            .FirstOrDefault();
+
+        var list = query.Select(booking => new Booking()
+            {
+                Id = booking.Id,
+                TableId = booking.TableId,
+                Table = new Table
+                {
+                    Id = table.Id,
+                    X = table.X,
+                    Y = table.Y,
+                    W = table.W,
+                    H = table.H,
+                    I = table.I,
+                    Static = table.Static
+                },
+                Name = booking.Name,
+                Email = booking.Email,
+                IsEating = booking.IsEating,
+                Phone = booking.Phone,
+                Date = booking.Date,
+                StartTime = booking.StartTime,
+                EndTime = booking.EndTime,
+                Description = booking.Description
+            })
+            .ToList();
+
         return list;
     }
 }

@@ -9,6 +9,8 @@
       class="btn btn-secondary me-2"
       type="button"
       @click="updateTableLayout"
+      data-bs-toggle="modal"
+      data-bs-target="#myModal"
     >
       Gem bordopstilling
     </button>
@@ -61,6 +63,27 @@
         <span class="remove" @click="removeItem(item.id)">x</span>
       </grid-item>
     </grid-layout>
+  </div>
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Bordopstilling gemt</h4>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+          ></button>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary me-3" data-bs-dismiss="modal">
+            Luk
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -200,16 +223,14 @@ export default {
         })
         .then((response) => {
           console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    updateTables() {
-      axios
-        .put("https://localhost:7026/api/Tables/", this.layout)
-        .then((response) => {
-          console.log(response.data);
+          axios
+            .put("https://localhost:7026/api/Tables/", this.layout)
+            .then((response) => {
+              console.log(response.data);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         })
         .catch((error) => {
           console.log(error);
