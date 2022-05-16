@@ -192,6 +192,8 @@ export default {
         })
         .then((response) => {
           console.log(response);
+          this.layout = [];
+          this.getLayout();
         })
         .catch((error) => {
           console.log(error);
