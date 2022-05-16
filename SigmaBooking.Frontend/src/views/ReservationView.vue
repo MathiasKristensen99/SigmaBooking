@@ -1,16 +1,29 @@
 <template>
-  <div class="col-3">
-    <div>
-      <h2>Kalender</h2>
-      <Datepicker v-model="date"></Datepicker>
-    </div>
-    <div>
-      <h2>Reservations</h2>
+  <div class="container-fluid">
+    <div class="col">
+
+      <div class="row" style="justify-content: center">
+        <div class="col-3" id="kalender-div" style="text-align: center">
+          <h2>Kalender</h2>
+          <Datepicker v-model="date"></Datepicker>
+        </div>
+      </div>
+
+
+      <div>
+        <h2>Reservationer</h2>
+      </div>
+
+
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.kalender-div{
+  text-align: center;
+}
+</style>
 
 <script>
 import Datepicker from "@vuepic/vue-datepicker";
