@@ -2,9 +2,8 @@
   <div class="container-fluid">
     <div class="col">
 
-        <div class="row" style="justify-content: center">
+        <div class="row calendar" style="justify-content: center">
           <div class="col-3" id="kalender-div" style="text-align: center">
-            <h2>Kalender</h2>
             <Datepicker v-model="date"></Datepicker>
           </div>
         </div>
@@ -14,8 +13,8 @@
           <h2>Reservationer</h2>
         </div>
 
-        <div class="row" v-for="reservation in reservations">
-          <div class="col-3">
+        <div class="row">
+          <div class="col-3" v-for="reservation in reservations">
             <div class="card">
               <div class="card-header">
                 Bord: 1
@@ -71,17 +70,18 @@
               </div>
             </div>
           </div>
+          </div>
         </div>
-
       </div>
-
     </div>
-  </div>
 </template>
 
 <style scoped>
 .kalender-div{
   text-align: center;
+}
+.calendar{
+  margin-top: 110px;
 }
 
 .card{
