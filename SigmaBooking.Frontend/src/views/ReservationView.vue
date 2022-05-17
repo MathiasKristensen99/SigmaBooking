@@ -48,7 +48,7 @@
                 </button>
               </div>
               <div id="visMere" class="collapse">
-                <div class="card-body">
+                <div class="card-body tel">
                   tel, nr.
                   123445677
                   <hr class="solid">
@@ -108,6 +108,9 @@
 }
 .change{
   margin-top: -35px;
+}
+.tel{
+  margin-top: -25px;
 }
 
 </style>
