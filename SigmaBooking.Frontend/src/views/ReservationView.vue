@@ -40,15 +40,34 @@
                 Notes:
                 <hr class="solid">
               </div>
+
+
               <div class="card-body">
                 <button class="btn_visMere" data-bs-toggle="collapse" data-bs-target="#visMere">
                   vis mere
                 </button>
               </div>
               <div id="visMere" class="collapse">
+                <div class="card-body">
+                  tel, nr.
+                  123445677
+                  <hr class="solid">
+                </div>
+                <div class="card-body">
+                  Email:
+                  KarlLutz69@gmail.ass
+                  <hr class="solid">
+                </div>
                   <div>
-                    context
+                    <button class="btn btn-success change">
+                      bearbejd
+                    </button>
                   </div>
+                <div>
+                  <button class="btn btn-danger delete">
+                    slet
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -84,7 +103,12 @@
   border: 0px;
   text-decoration: underline;
 }
-
+.delete{
+  margin-bottom: 10px;
+}
+.change{
+  margin-top: -35px;
+}
 
 </style>
 
