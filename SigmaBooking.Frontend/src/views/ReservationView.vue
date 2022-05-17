@@ -24,10 +24,6 @@
                 Navn:
               </div>
               <div class="card-body">
-                Efternavn:
-                <hr class="solid">
-              </div>
-              <div class="card-body">
                 ankomst : slut (antal px)
               </div>
               <div class="card-body">
@@ -59,7 +55,7 @@
                 </div>
                   <div>
                     <button class="btn btn-success change">
-                      bearbejd
+                      rediger
                     </button>
                   </div>
                 <div>
@@ -119,6 +115,7 @@
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 //v-for="reservation in reservations"
+
 export default {
   name: "ReservationView",
   components: { Datepicker },
@@ -129,10 +126,15 @@ export default {
           "manni das mammut",
           "Rød hår er sekset",
           "Hækser knepper bedst",
-          "I like turtles"
+          "I like turtles",
+        "I like turtles",
+        "I like turtles",
+        "I like turtles",
       ]
     };
   },
+
+
 };
 
 
