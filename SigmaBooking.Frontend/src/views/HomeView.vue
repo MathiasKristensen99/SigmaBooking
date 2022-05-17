@@ -1,37 +1,41 @@
 <template>
   <p class="date">{{ currentDate() }}</p>
   <div class="row">
-    <button class="btn btn-secondary me-2 col" type="button" @click="addItem">
-      Tilføj bord
-    </button>
-    <button
-      class="btn btn-secondary me-2 col"
-      type="button"
-      data-bs-toggle="modal"
-      data-bs-target="#myModal"
-      @click="updateTableLayout"
-    >
-      Gem bordopstilling
-    </button>
-    <button
-      class="btn btn-secondary me-2 col"
-      type="button"
-      @click="createLayout"
-    >
-      Ny Bordopstilling
-    </button>
-    <div class="col-2">
+    <div class="col-3 btnDiv">
+      <button class="btn btn-secondary me-2" type="button" @click="addItem">
+        Tilføj bord
+      </button>
+      <button
+        class="btn btn-secondary me-2"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#myModal"
+        @click="updateTableLayout"
+      >
+        Gem bordopstilling
+      </button>
+      <button
+        class="btn btn-secondary me-2"
+        type="button"
+        @click="createLayout"
+      >
+        Ny Bordopstilling
+      </button>
+    </div>
+    <div class="col-1">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" v-model="draggable" />
         <label class="form-check-label">Draggable</label>
       </div>
+    </div>
+    <div class="col-1">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" v-model="resizable" />
         <label class="form-check-label">Resizable</label>
       </div>
     </div>
 
-    <div class="col">
+    <div class="col-2">
       <div>
         <Datepicker v-model="date"></Datepicker>
       </div>
@@ -277,6 +281,10 @@ export default {
 
 <style>
 /*************************************/
+
+.btnDiv {
+  margin-left: 10px;
+}
 
 .date {
   text-align: center;
