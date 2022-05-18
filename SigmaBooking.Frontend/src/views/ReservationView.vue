@@ -47,16 +47,22 @@
                 <hr class="solid" />
               </div>
 
+
+
               <div class="card-body">
                 <button
+                    :href="'#collapse' + index"
                   class="btn_visMere"
                   data-bs-toggle="collapse"
-                  data-bs-target="#visMere"
+                  :data-target="'#collapse' + index"
                 >
                   vis mere
                 </button>
               </div>
-              <div id="visMere" class="collapse">
+
+
+
+              <div :id="'collapse' + index" class="collapse">
                 <div class="card-body tel">
                   Tlf nr. {{ booking.phone }}
                   <hr class="solid" />
