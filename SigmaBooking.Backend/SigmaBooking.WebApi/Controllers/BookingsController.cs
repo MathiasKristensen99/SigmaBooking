@@ -22,7 +22,7 @@ namespace SigmaBooking.WebApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<BookingDto> CreateBooking([FromBody] BookingDto dto)
+        public ActionResult<BookingDto> CreateBooking([FromBody] CreateBookingDto dto)
         {
             var bookingFromDto = new Booking
             {

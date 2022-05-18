@@ -2,7 +2,7 @@ import {Table} from "./Table";
 
 export interface Booking {
     id: string;
-    table: Table
+    table: Table;
     tableId: string;
     name: string;
     phone: string;

@@ -45,10 +45,23 @@ public class BookingRepository : IBookingRepository
         
         _bookingsCollection.InsertOne(bookingEntity);
 
+        var table = _tablesCollection.Find(Builders<TableEntity>.Filter.Eq("_id", ObjectId.Parse(booking.TableId)))
+            .FirstOrDefault();
+        
         return new Booking
         {
             Id = bookingEntity.Id,
             TableId = bookingEntity.TableId,
+            Table = new Table
+            {
+                Id = table.Id,
+                Static = table.Static,
+                X = table.X,
+                Y = table.Y,
+                W = table.W,
+                H = table.H,
+                I = table.I
+            },
             Name = bookingEntity.Name,
             Phone = bookingEntity.Phone,
             Email = bookingEntity.Email,

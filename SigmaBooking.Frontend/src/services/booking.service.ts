@@ -3,9 +3,10 @@ import { Booking } from "../models/Booking";
 
 export class BookingService {
     async getBookingsFromDate(date: string): Promise<Booking[]> {
-        const res = await http.get(
+        const res = await http.get<Booking[]>(
             "api/Bookings/date/" + date
         );
+        // @ts-ignore
         return res.data.list;
     }
 
