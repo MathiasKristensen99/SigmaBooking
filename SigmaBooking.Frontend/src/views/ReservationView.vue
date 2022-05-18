@@ -19,9 +19,8 @@
                 Bord: 1
                 <hr class="solid" />
               </div>
-              <div class="card-body">Navn:</div>
               <div class="card-body">
-                Efternavn:
+                Navn:
                 <hr class="solid" />
               </div>
               <div class="card-body">ankomst : slut (antal px)</div>
@@ -44,8 +43,7 @@
                 <button
                   class="btn_visMere"
                   data-bs-toggle="collapse"
-                  data-bs-target="#visMere"
-                >
+                  data-bs-target="#visMere">
                   vis mere
                 </button>
               </div>
@@ -112,22 +110,43 @@
 </style>
 
 <script>
+
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
-//v-for="reservation in reservations"
+import axios from "axios";
+
 export default {
   name: "ReservationView",
   components: { Datepicker },
   data() {
     return {
       date: null,
-      reservations: [
-        "manni das mammut",
-        "Rød hår er sekset",
-        "Hækser knepper bedst",
-        "I like turtles",
-      ],
+      reservations: ["e", "d", "l", "d", "ds"],
     };
   },
+
+methods:{
+  getCurrentDate_HttpFormat() {
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, "0");
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const yyyy = today.getFullYear();
+    today = dd + "%2F" + mm + "%2F" + yyyy;
+    return today;
+  },
+
+
+
+    getReservations(){
+      axios.get("https://localhost:7026/api/Bookings/date/" +
+      this.getCurrentDate_HttpFormat().toString()
+      )
+          .then((response) => {
+            console.log(response.data);
+          })
+    }
+
+
+}
 };
 </script>
