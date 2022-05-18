@@ -24,13 +24,13 @@
                 Navn: {{booking.name}}
                 <hr class="solid" />
               </div>
-              <div class="card-body">ankomst : slut (antal px)</div>
+              <div class="card-body">{{ booking.startTime}} - {{booking.endTime}} (px: {{booking.peopleCount}})</div>
               <div class="card-body">
                 Spise
                 <input
                   class="form-check-input"
                   type="checkbox"
-                  value="booking.isEating"
+                  v-model="booking.isEating"
                   id="skalSpise"
                 />
                 <hr class="solid" />
