@@ -14,13 +14,13 @@
         </div>
       </div>
 
-      <div class="container">
+      <div class="container-fluid">
         <div>
           <h2>Reservationer</h2>
         </div>
 
         <div class="row">
-          <div class="col-3" v-for="(booking, index) in bookings"
+          <div class="col-12 col-md-6 col-lg-3" v-for="(booking, index) in bookings"
           v-bind:key="index">
             <div class="card">
               <div class="card-header">
@@ -47,10 +47,9 @@
                 <hr class="solid" />
               </div>
 
-
-
               <div class="card-body">
                 <button
+                    id="btn_visMere"
                     :href="'#collapse' + index"
                   class="btn_visMere"
                   data-bs-toggle="collapse"
@@ -59,9 +58,6 @@
                   vis mere
                 </button>
               </div>
-
-
-
               <div :id="'collapse' + index" class="collapse">
                 <div class="card-body tel">
                   Tlf nr. {{ booking.phone }}
@@ -160,6 +156,7 @@
 .tel {
   margin-top: -25px;
 }
+
 </style>
 
 <script setup lang="ts">
@@ -172,7 +169,6 @@ import {BookingService} from "../services/booking.service";
 import {Booking} from "../models/Booking";
 const bookingStore = BookingStore();
 const bookingService: BookingService = new BookingService();
-
 bookingStore.getBookings(getCurrentDate_HttpFormat());
 console.log(bookingStore.bookingsFromDate)
 const bookings = ref<Booking[]>(bookingStore.bookingsFromDate);
@@ -219,6 +215,9 @@ function getCurrentDate_HttpFormat(): string {
   const yyyy = today.getFullYear();
   return dd + "%2F" + mm + "%2F" + yyyy;
 }
+
+
+
 
 /*
 export default {
