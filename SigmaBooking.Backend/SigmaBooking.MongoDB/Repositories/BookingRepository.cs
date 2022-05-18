@@ -153,7 +153,7 @@ public class BookingRepository : IBookingRepository
 
     public List<Booking> GetBookingsByDate(string date)
     {
-        var query = _bookingsCollection.Find(Builders<BookingEntity>.Filter.Eq("Date", date.Replace("%2F", "/"))).ToList();
+        var query = _bookingsCollection.Find(Builders<BookingEntity>.Filter.Eq("Date", date)).ToList();
         
         var list = new List<Booking>();
         

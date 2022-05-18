@@ -13,14 +13,15 @@
         </div>
 
         <div class="row">
-          <div class="col-3" v-for="reservation in reservations">
+          <div class="col-3" v-for="(booking, index) in bookings"
+          v-bind:key="index">
             <div class="card">
               <div class="card-header">
                 Bord: 1
                 <hr class="solid" />
               </div>
               <div class="card-body">
-                Navn:
+                Navn: {{booking.name}}
                 <hr class="solid" />
               </div>
               <div class="card-body">ankomst : slut (antal px)</div>
@@ -29,13 +30,13 @@
                 <input
                   class="form-check-input"
                   type="checkbox"
-                  value=""
+                  value="booking.isEating"
                   id="skalSpise"
                 />
                 <hr class="solid" />
               </div>
               <div class="card-body">
-                Notes:
+                Notes: {{booking.description}}
                 <hr class="solid" />
               </div>
 
@@ -43,17 +44,18 @@
                 <button
                   class="btn_visMere"
                   data-bs-toggle="collapse"
-                  data-bs-target="#visMere">
+                  data-bs-target="#visMere"
+                >
                   vis mere
                 </button>
               </div>
               <div id="visMere" class="collapse">
                 <div class="card-body tel">
-                  tel, nr. 123445677
+                  Tlf nr. {{ booking.phone }}
                   <hr class="solid" />
                 </div>
                 <div class="card-body">
-                  Email: KarlLutz69@gmail.ass
+                  Email: {{ booking.email }}
                   <hr class="solid" />
                 </div>
                 <div>
@@ -109,13 +111,45 @@
 }
 </style>
 
-<script>
-
+<script setup lang="ts">
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
-import axios from "axios";
+//import axios from "axios";
+import {BookingStore} from "../stores/bookingStore";
+import {ref} from "vue";
+import {BookingService} from "../services/booking.service";
+import {Booking} from "../models/Booking";
+const bookingStore = BookingStore();
+const bookings = ref<Booking[]>([]);
+const bookingService: BookingService = new BookingService();
 
+bookingService.getBookingsFromDate(getCurrentDate_HttpFormat()).then(value => value.map((booking) => {
+  bookings.value.push(booking)
+}))
+
+const date = new Date();
+
+function getBookings() {
+  bookingService.getBookingsFromDate(getCurrentDate_HttpFormat()).then(value =>
+      value.map((booking) => {
+        bookings.value.push(booking)
+      })
+    );
+}
+
+
+
+function getCurrentDate_HttpFormat(): string {
+  let today = new Date();
+  const dd = String(today.getDate()).padStart(2, "0");
+  const mm = String(today.getMonth() + 1).padStart(2, "0");
+  const yyyy = today.getFullYear();
+  return dd + "%2F" + mm + "%2F" + yyyy;
+}
+
+/*
 export default {
+
   name: "ReservationView",
   components: { Datepicker },
   data() {
@@ -125,28 +159,26 @@ export default {
     };
   },
 
-methods:{
-  getCurrentDate_HttpFormat() {
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, "0");
-    const mm = String(today.getMonth() + 1).padStart(2, "0");
-    const yyyy = today.getFullYear();
-    today = dd + "%2F" + mm + "%2F" + yyyy;
-    return today;
+  methods: {
+    getCurrentDate_HttpFormat() {
+      let today = new Date();
+      const dd = String(today.getDate()).padStart(2, "0");
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const yyyy = today.getFullYear();
+      today = dd + "%2F" + mm + "%2F" + yyyy;
+      return today;
+    },
+
+    getReservations() {
+      axios
+        .get(
+          "https://localhost:7026/api/Bookings/date/" +
+            this.getCurrentDate_HttpFormat().toString()
+        )
+        .then((response) => {
+          console.log(response.data);
+        });
+    },
   },
-
-
-
-    getReservations(){
-      axios.get("https://localhost:7026/api/Bookings/date/" +
-      this.getCurrentDate_HttpFormat().toString()
-      )
-          .then((response) => {
-            console.log(response.data);
-          })
-    }
-
-
-}
-};
+  */
 </script>
