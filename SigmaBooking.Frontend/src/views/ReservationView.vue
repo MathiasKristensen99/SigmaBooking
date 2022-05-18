@@ -19,7 +19,7 @@
           <h2>Reservationer</h2>
         </div>
 
-        <div class="row">
+        <div class="row g-3">
           <div class="col-12 col-md-6 col-lg-3" v-for="(booking, index) in bookings"
           v-bind:key="index">
             <div class="card">
