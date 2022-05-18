@@ -4,7 +4,7 @@
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
           <a class="navbar-brand" href="/home">
-            <img class="logo" src="src/assets/sigma-logo-without-bg.png" />
+            <img class="logo" src="/src/assets/sigma-logo-without-bg.png" />
           </a>
           <button
             class="navbar-toggler"

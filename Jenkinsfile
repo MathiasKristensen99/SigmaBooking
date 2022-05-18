@@ -19,7 +19,15 @@ pipeline {
                 sh "docker-compose --env-file config/Test.env build api"
             }
         }
-        stage ("Test") {
+        stage("Building the frontend") {
+            steps {
+                sh "docker-compose --env-file config/Test.env build web"
+                dir("SigmaBooking.Frontend") {
+                    sh "npm run build"
+                }
+            }
+        }
+        stage ("Testing the API") {
             steps {
                 dir("SigmaBooking.Backend/SigmaBooking.Core.Test") {
                     sh "dotnet add package coverlet.collector"
