@@ -21,10 +21,10 @@ pipeline {
         }
         stage("Building the frontend") {
             steps {
-                sh "docker-compose --env-file config/Test.env build web"
                 dir("SigmaBooking.Frontend") {
                     sh "npm run build"
                 }
+                sh "docker-compose --env-file config/Test.env build web"
             }
         }
         stage ("Testing the API") {
