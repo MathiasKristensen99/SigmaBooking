@@ -17,7 +17,7 @@
           v-bind:key="index">
             <div class="card">
               <div class="card-header">
-                Bord: 1
+                Bord: {{ booking.table.i }}
                 <hr class="solid" />
               </div>
               <div class="card-body">

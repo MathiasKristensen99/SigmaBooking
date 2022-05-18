@@ -22,8 +22,8 @@ export class TableService {
     }
 
     async getAllTables(): Promise<Table[]> {
-        const res = await http.get<Table[]>("/Tables");
-        return res.data
+        const res = await http.get("/Tables");
+        return res.data.tables
     }
 
     getAll() {

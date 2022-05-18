@@ -159,7 +159,19 @@ public class BookingRepository : IBookingRepository
         
         foreach (var booking in query)
         {
-            list.Add(new Booking() {Id = booking.Id, TableId = booking.TableId, Name = booking.Name, Email = booking.Email, PeopleCount = booking.PeopleCount, IsEating = booking.IsEating, Phone = booking.Phone, Date = booking.Date, StartTime = booking.StartTime, EndTime = booking.EndTime, Description = booking.Description});
+            var table = _tablesCollection.Find(Builders<TableEntity>.Filter.Eq("_id", ObjectId.Parse(booking.TableId)))
+                .FirstOrDefault();
+            var newTable = new Table
+            {
+                Id = table.Id,
+                I = table.I,
+                X = table.X,
+                Y = table.Y,
+                W = table.W,
+                H = table.H,
+                Static = table.Static
+            };
+            list.Add(new Booking() {Id = booking.Id, TableId = booking.TableId, Table = newTable, Name = booking.Name, Email = booking.Email, PeopleCount = booking.PeopleCount, IsEating = booking.IsEating, Phone = booking.Phone, Date = booking.Date, StartTime = booking.StartTime, EndTime = booking.EndTime, Description = booking.Description});
         }
         
         return list;

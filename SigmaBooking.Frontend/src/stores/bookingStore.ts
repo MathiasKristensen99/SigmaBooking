@@ -21,5 +21,19 @@ export const BookingStore = defineStore({
                 (bookings) => (this.bookings = bookings)
             ).catch((err) => console.log(err));
         },
+        createBooking(
+            tableId: string,
+            name: string,
+            phone: string,
+            email: string,
+            date: string,
+            peopleCount: number,
+            startTime: string,
+            endTime: string,
+            isEating: boolean,
+            description: string) {
+            bookingService.createBooking(tableId, name, phone, email, date, peopleCount, startTime, endTime, isEating, description)
+                .then((booking => (this.state.bookings.push(booking)))).catch((err) => console.log(err));
+        },
     },
 });

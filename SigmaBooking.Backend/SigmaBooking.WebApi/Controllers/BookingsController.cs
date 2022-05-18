@@ -125,6 +125,16 @@ namespace SigmaBooking.WebApi.Controllers
                     Name = booking.Name,
                     Email = booking.Email,
                     Phone = booking.Phone,
+                    Table = new TableDto
+                    {
+                        Id = booking.Table.Id,
+                        X = booking.Table.X,
+                        Y = booking.Table.Y,
+                        H = booking.Table.H,
+                        W = booking.Table.W,
+                        I = booking.Table.I,
+                        Static = booking.Table.Static
+                    },
                     Description = booking.Description,
                     PeopleCount = booking.PeopleCount,
                     Date = booking.Date,
