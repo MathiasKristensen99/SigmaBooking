@@ -37,7 +37,7 @@
 
     <div class="col-2">
       <div>
-        <Datepicker v-model="date"></Datepicker>
+        <Datepicker v-model="date" ref="datepicker"></Datepicker>
       </div>
     </div>
   </div>
@@ -102,6 +102,7 @@ import { GridLayout, GridItem } from "vue-grid-layout";
 import axios from "axios";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
+import { ref } from "vue";
 
 export default {
   components: {
@@ -120,7 +121,7 @@ export default {
       layoutId: "",
       layoutDate: "",
       isDefault: true,
-      date: null,
+      date: ref(),
     };
   },
   mounted() {
@@ -128,6 +129,12 @@ export default {
     this.index = this.layout.length;
   },
   methods: {
+    selectNewDate() {
+      const datepicker = ref(null);
+      if (datepicker.value) {
+        console.log(datepicker.value.toString());
+      }
+    },
     addItem: function () {
       const item = {
         x: 0,
