@@ -92,13 +92,14 @@
               data-bs-dismiss="modal"
           ></button>
         </div>
-        <select class="form-control">
-          <option value="" selected disabled>Vælg bord</option>
-          <option v-for="(table, index) in tables" :value="table.id" v-bind:key="index">{{table.i}}</option>
-        </select> <br/>
+
         <input type="text" class="form-control" v-model="tableId" placeholder="Bord"> <br/>
         <input type="text" class="form-control" v-model="inputName" placeholder="Navn"> <br/>
         <input type="text" class="form-control" v-model="inputPhone" placeholder="Tlf nr"> <br/>
+        <select class="form-control" v-model="tableId">
+          <option value="" selected disabled>Vælg bord</option>
+          <option v-for="table in tables" :value="table.id.toString()" v-bind:key="inputName">{{table.i}}</option>
+        </select> <br/>
         <input type="text" class="form-control" v-model="inputEmail" placeholder="Email"> <br/>
         <input type="text" class="form-control" v-model="inputStartTime" placeholder="Start tidspunkt"> <br/>
         <input type="text" class="form-control" v-model="inputEndTime" placeholder="Slut tidspunkt"> <br/>
@@ -127,18 +128,21 @@
 <script setup lang="ts">
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
-//import axios from "axios";
 import {BookingStore} from "../stores/bookingStore";
 import {ref} from "vue";
-import {BookingService} from "../services/booking.service";
 import {Booking} from "../models/Booking";
+import {TableLayoutService} from "../services/tableLayout.service";
 const bookingStore = BookingStore();
+const tableLayoutService: TableLayoutService = new TableLayoutService();
+
+let tables = [];
+getTables();
+console.log(tables);
 
 bookingStore.getBookings(getCurrentDate_HttpFormat());
 console.log(bookingStore.bookingsFromDate)
 
 const bookings = ref<Booking[]>(bookingStore.bookingsFromDate);
-const tables = [];
 
 const date = new Date();
 const inputName = ref("");
@@ -150,6 +154,27 @@ const inputStartTime = ref("");
 const inputEndTime = ref("");
 const tableId = ref("");
 const peopleCount = ref();
+
+
+function getTables() {
+  tableLayoutService.getTableLayoutByDate(getCurrentDate_HttpFormat())
+      .then(value => {
+        for (const table of value.tables) {
+          const newTable = {
+            id: table.id,
+            isStatic: table.isStatic,
+            i: table.i,
+            x: table.x,
+            y: table.y,
+            w: table.w,
+            h: table.h
+          };
+          tables.push(newTable);
+        }
+      }).catch((err) => console.log(err));
+}
+
+
 
 function createBooking() {
   bookingStore.createBooking(
