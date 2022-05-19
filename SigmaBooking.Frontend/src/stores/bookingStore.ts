@@ -19,6 +19,7 @@ export const BookingStore = defineStore({
         getBookings(date: string) {
             bookingService.getBookingsFromDate(date).then(
                 (bookings) => {
+                    this.bookings.splice(0, this.bookings.length)
                     for (const item of bookings) {
                         this.bookings.push(item);
                     }

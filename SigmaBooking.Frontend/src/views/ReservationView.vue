@@ -3,7 +3,7 @@
     <div class="col">
       <div class="row calendar" style="justify-content: center">
         <div class="col-3" id="kalender-div" style="text-align: center">
-          <Datepicker v-model="date"></Datepicker>
+          <Datepicker :value="date" @update:modelValue="handleDate"></Datepicker>
           <br>
           <button class="btn btn-secondary me-2"
                   type="button"
@@ -92,8 +92,6 @@
               data-bs-dismiss="modal"
           ></button>
         </div>
-
-        <input type="text" class="form-control" v-model="tableId" placeholder="Bord"> <br/>
         <input type="text" class="form-control" v-model="inputName" placeholder="Navn"> <br/>
         <input type="text" class="form-control" v-model="inputPhone" placeholder="Tlf nr"> <br/>
         <select class="form-control" v-model="tableId">
@@ -135,16 +133,7 @@ import {TableLayoutService} from "../services/tableLayout.service";
 const bookingStore = BookingStore();
 const tableLayoutService: TableLayoutService = new TableLayoutService();
 
-let tables = [];
-getTables();
-console.log(tables);
-
-bookingStore.getBookings(getCurrentDate_HttpFormat());
-console.log(bookingStore.bookingsFromDate)
-
-const bookings = ref<Booking[]>(bookingStore.bookingsFromDate);
-
-const date = new Date();
+const date = ref(getCurrentDate_HttpFormat());
 const inputName = ref("");
 const inputEmail = ref("");
 const inputPhone = ref("");
@@ -155,9 +144,24 @@ const inputEndTime = ref("");
 const tableId = ref("");
 const peopleCount = ref();
 
+const handleDate = (modelData) => {
+  date.value = modelData;
+  const dd = String(modelData.getDate()).padStart(2, "0");
+  const mm = String(modelData.getMonth() + 1).padStart(2, "0");
+  const yyyy = modelData.getFullYear();
+  const datePicked = dd + "%2F" + mm + "%2F" + yyyy
+  date.value = datePicked;
+
+  bookingStore.getBookings(datePicked);
+}
+
+let tables = [];
+getTables();
+bookingStore.getBookings(date.value);
+const bookings = ref<Booking[]>(bookingStore.bookingsFromDate);
 
 function getTables() {
-  tableLayoutService.getTableLayoutByDate(getCurrentDate_HttpFormat())
+  tableLayoutService.getTableLayoutByDate(date.value)
       .then(value => {
         for (const table of value.tables) {
           const newTable = {
@@ -174,15 +178,14 @@ function getTables() {
       }).catch((err) => console.log(err));
 }
 
-
-
 function createBooking() {
+
   bookingStore.createBooking(
       tableId.value,
       inputName.value,
       inputPhone.value,
       inputEmail.value,
-      getCurrentDate_HttpFormat(),
+      date.value,
       peopleCount.value,
       inputStartTime.value,
       inputEndTime.value,

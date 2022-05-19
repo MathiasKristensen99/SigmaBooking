@@ -25,7 +25,7 @@
 
     <div class="col-2">
       <div>
-        <Datepicker v-model="date" ref="datepicker"></Datepicker>
+        <Datepicker :value="date" @update:modelValue="handleDate"></Datepicker>
       </div>
     </div>
   </div>
@@ -98,7 +98,6 @@ export default {
     GridItem,
     Datepicker,
   },
-
   data() {
     return {
       layout: [],
