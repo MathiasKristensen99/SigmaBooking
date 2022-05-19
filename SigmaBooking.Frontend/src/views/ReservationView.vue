@@ -71,7 +71,7 @@
                   <button class="btn btn-success change">Rediger</button>
                 </div>
                 <div>
-                  <button class="btn btn-danger delete">Slet</button>
+                  <button class="btn btn-danger delete" @click="deleteBooking(booking.id)">Slet</button>
                 </div>
               </div>
             </div>
@@ -179,7 +179,6 @@ function getTables() {
 }
 
 function createBooking() {
-
   bookingStore.createBooking(
       tableId.value,
       inputName.value,
@@ -201,6 +200,10 @@ function getCurrentDate_HttpFormat(): string {
   const mm = String(today.getMonth() + 1).padStart(2, "0");
   const yyyy = today.getFullYear();
   return dd + "%2F" + mm + "%2F" + yyyy;
+}
+
+function deleteBooking(id: string) {
+  bookingStore.deleteBooking(id);
 }
 
 </script>

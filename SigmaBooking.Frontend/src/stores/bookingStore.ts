@@ -40,5 +40,14 @@ export const BookingStore = defineStore({
             bookingService.createBooking(tableId, name, phone, email, date, peopleCount, startTime, endTime, isEating, description)
                 .then((booking => (this.bookings.push(booking)))).catch((err) => console.log(err));
         },
+        deleteBooking(id: string) {
+            bookingService.deleteBooking(id)
+                .then((value) => {
+                    this.bookings.forEach((booking, index) => {
+                        if (booking.id === id) this.bookings.splice(index, 1);
+                    });
+                })
+                .catch((err) => console.log(err));
+        },
     },
 });

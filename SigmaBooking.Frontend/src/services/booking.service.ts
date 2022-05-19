@@ -35,4 +35,14 @@ export class BookingService {
         });
         return res.data;
     }
+
+    async deleteBooking(id: string) {
+        await http.delete("api/Bookings/" + id)
+            .catch((res) => {
+                return res.data
+            })
+            .then((err) => {
+                console.log(err);
+            });
+    }
 }
