@@ -19,7 +19,7 @@
         type="button"
         @click="createLayout"
       >
-        Ny Bordopstilling
+        Ny Standart
       </button>
     </div>
 
