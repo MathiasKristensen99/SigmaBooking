@@ -3,7 +3,7 @@ import {BookingService} from "../services/booking.service";
 import {Booking} from "../models/Booking";
 
 const bookingService: BookingService = new BookingService();
-//{id: "", name: "", date: "", email: "", description: "", peopleCount: 0, endTime: "", phone: "", startTime: "", isEating: true, tableId: "", table: null}
+
 export const BookingStore = defineStore({
     id: "bookingStore",
     state: () => ({
@@ -19,6 +19,7 @@ export const BookingStore = defineStore({
         getBookings(date: string) {
             bookingService.getBookingsFromDate(date).then(
                 (bookings) => {
+                    this.bookings.splice(0, this.bookings.length)
                     for (const item of bookings) {
                         this.bookings.push(item);
                     }
