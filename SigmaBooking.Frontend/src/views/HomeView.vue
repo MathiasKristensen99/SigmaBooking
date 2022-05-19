@@ -22,18 +22,7 @@
         Ny Standart
       </button>
     </div>
-    <div class="col-md-1">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" v-model="draggable" />
-        <label class="form-check-label">Draggable</label>
-      </div>
-    </div>
-    <div class="col-md-1">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" v-model="resizable" />
-        <label class="form-check-label">Resizable</label>
-      </div>
-    </div>
+
 
     <div class="col-md-3">
       <div>
@@ -62,10 +51,8 @@
       :h="item.h"
       :i="item.i"
     >
-      <span class="text"
-        >{{ item.i }}
-        <br />
-        <button class="click">Click</button>
+      <span class="text">
+        <button class="click">{{ item.i }}</button>
       </span>
       <span class="remove" @click="removeItem(item.id)">x</span>
     </grid-item>
