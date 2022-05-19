@@ -1,7 +1,7 @@
 <template>
   <p class="date">{{ currentDate() }}</p>
   <div class="row">
-    <div class="col-3 btnDiv">
+    <div class="col-md-3 btnDiv">
       <button class="btn btn-secondary me-2" type="button" @click="addItem">
         Tilføj bord
       </button>
@@ -15,27 +15,27 @@
         Gem bordopstilling
       </button>
       <button
-        class="btn btn-secondary me-2"
+        class="btn btn-secondary me-1"
         type="button"
         @click="createLayout"
       >
         Ny Bordopstilling
       </button>
     </div>
-    <div class="col-1">
+    <div class="col-md-1">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" v-model="draggable" />
         <label class="form-check-label">Draggable</label>
       </div>
     </div>
-    <div class="col-1">
+    <div class="col-md-1">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" v-model="resizable" />
         <label class="form-check-label">Resizable</label>
       </div>
     </div>
 
-    <div class="col-2">
+    <div class="col-md-3">
       <div>
         <Datepicker v-model="date" ref="datepicker"></Datepicker>
       </div>
