@@ -3,7 +3,7 @@ import {BookingService} from "../services/booking.service";
 import {Booking} from "../models/Booking";
 
 const bookingService: BookingService = new BookingService();
-//{id: "", name: "", date: "", email: "", description: "", peopleCount: 0, endTime: "", phone: "", startTime: "", isEating: true, tableId: "", table: null}
+
 export const BookingStore = defineStore({
     id: "bookingStore",
     state: () => ({

@@ -92,6 +92,10 @@
               data-bs-dismiss="modal"
           ></button>
         </div>
+        <select class="form-control">
+          <option value="" selected disabled>Vælg bord</option>
+          <option v-for="(table, index) in tables" :value="table.id" v-bind:key="index">{{table.i}}</option>
+        </select> <br/>
         <input type="text" class="form-control" v-model="tableId" placeholder="Bord"> <br/>
         <input type="text" class="form-control" v-model="inputName" placeholder="Navn"> <br/>
         <input type="text" class="form-control" v-model="inputPhone" placeholder="Tlf nr"> <br/>
@@ -119,6 +123,59 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import Datepicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
+//import axios from "axios";
+import {BookingStore} from "../stores/bookingStore";
+import {ref} from "vue";
+import {BookingService} from "../services/booking.service";
+import {Booking} from "../models/Booking";
+const bookingStore = BookingStore();
+
+bookingStore.getBookings(getCurrentDate_HttpFormat());
+console.log(bookingStore.bookingsFromDate)
+
+const bookings = ref<Booking[]>(bookingStore.bookingsFromDate);
+const tables = [];
+
+const date = new Date();
+const inputName = ref("");
+const inputEmail = ref("");
+const inputPhone = ref("");
+const inputDescription = ref("");
+const inputIsEating = ref();
+const inputStartTime = ref("");
+const inputEndTime = ref("");
+const tableId = ref("");
+const peopleCount = ref();
+
+function createBooking() {
+  bookingStore.createBooking(
+      tableId.value,
+      inputName.value,
+      inputPhone.value,
+      inputEmail.value,
+      getCurrentDate_HttpFormat(),
+      peopleCount.value,
+      inputStartTime.value,
+      inputEndTime.value,
+      inputIsEating.value,
+      inputDescription.value);
+
+  console.log(bookingStore.bookingsFromDate);
+}
+
+function getCurrentDate_HttpFormat(): string {
+  let today = new Date();
+  const dd = String(today.getDate()).padStart(2, "0");
+  const mm = String(today.getMonth() + 1).padStart(2, "0");
+  const yyyy = today.getFullYear();
+  return dd + "%2F" + mm + "%2F" + yyyy;
+}
+
+</script>
 
 <style scoped>
 .kalender-div {
@@ -158,99 +215,3 @@
 }
 
 </style>
-
-<script setup lang="ts">
-import Datepicker from "@vuepic/vue-datepicker";
-import "@vuepic/vue-datepicker/dist/main.css";
-//import axios from "axios";
-import {BookingStore} from "../stores/bookingStore";
-import {ref} from "vue";
-import {BookingService} from "../services/booking.service";
-import {Booking} from "../models/Booking";
-const bookingStore = BookingStore();
-const bookingService: BookingService = new BookingService();
-bookingStore.getBookings(getCurrentDate_HttpFormat());
-console.log(bookingStore.bookingsFromDate)
-const bookings = ref<Booking[]>(bookingStore.bookingsFromDate);
-
-const date = new Date();
-const inputName = ref("");
-const inputEmail = ref("");
-const inputPhone = ref("");
-const inputDescription = ref("");
-const inputIsEating = ref();
-const inputStartTime = ref("");
-const inputEndTime = ref("");
-const tableId = ref("");
-const peopleCount = ref();
-
-function getBookings() {
-  bookingService.getBookingsFromDate(getCurrentDate_HttpFormat()).then(value =>
-      value.map((booking) => {
-        bookings.value.push(booking)
-      })
-    );
-}
-
-function createBooking() {
-  bookingStore.createBooking(
-      tableId.value,
-      inputName.value,
-      inputPhone.value,
-      inputEmail.value,
-      getCurrentDate_HttpFormat(),
-      peopleCount.value,
-      inputStartTime.value,
-      inputEndTime.value,
-      inputIsEating.value,
-      inputDescription.value);
-
-  console.log(bookingStore.bookingsFromDate);
-}
-
-function getCurrentDate_HttpFormat(): string {
-  let today = new Date();
-  const dd = String(today.getDate()).padStart(2, "0");
-  const mm = String(today.getMonth() + 1).padStart(2, "0");
-  const yyyy = today.getFullYear();
-  return dd + "%2F" + mm + "%2F" + yyyy;
-}
-
-
-
-
-/*
-export default {
-
-  name: "ReservationView",
-  components: { Datepicker },
-  data() {
-    return {
-      date: null,
-      reservations: ["e", "d", "l", "d", "ds"],
-    };
-  },
-
-  methods: {
-    getCurrentDate_HttpFormat() {
-      let today = new Date();
-      const dd = String(today.getDate()).padStart(2, "0");
-      const mm = String(today.getMonth() + 1).padStart(2, "0");
-      const yyyy = today.getFullYear();
-      today = dd + "%2F" + mm + "%2F" + yyyy;
-      return today;
-    },
-
-    getReservations() {
-      axios
-        .get(
-          "https://localhost:7026/api/Bookings/date/" +
-            this.getCurrentDate_HttpFormat().toString()
-        )
-        .then((response) => {
-          console.log(response.data);
-        });
-    },
-  },
-  */
-</script>
