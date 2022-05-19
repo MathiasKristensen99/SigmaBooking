@@ -20,7 +20,7 @@
         </div>
 
         <div class="row g-3">
-          <div class="col-12 col-md-6 col-lg-3" v-for="(booking, index) in bookings"
+          <div class="col-12 col-sm-6 col-md-3" v-for="(booking, index) in bookings"
           v-bind:key="index">
             <div class="card">
               <div class="card-header">
