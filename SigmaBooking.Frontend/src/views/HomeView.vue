@@ -22,18 +22,6 @@
         Ny Bordopstilling
       </button>
     </div>
-    <div class="col-1">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" v-model="draggable" />
-        <label class="form-check-label">Draggable</label>
-      </div>
-    </div>
-    <div class="col-1">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" v-model="resizable" />
-        <label class="form-check-label">Resizable</label>
-      </div>
-    </div>
 
     <div class="col-2">
       <div>
@@ -284,6 +272,23 @@ export default {
     } else return (button.disabled = true);
   },
 };
+
+/*
+draggable and  reizable removed
+
+<div class="col-1">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" v-model="draggable" />
+        <label class="form-check-label">Draggable</label>
+      </div>
+    </div>
+    <div class="col-1">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" v-model="resizable" />
+        <label class="form-check-label">Resizable</label>
+      </div>
+    </div>
+ */
 </script>
 
 <style>
