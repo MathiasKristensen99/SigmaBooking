@@ -1,12 +1,13 @@
 <template>
-  <p class="date">{{ currentDate() }}</p>
-  <div class="row">
-    <div class="col-md-3 btnDiv">
-      <button class="btn btn-secondary me-2" type="button" @click="addItem">
+
+  <div class="row gadgetRow">
+    <div class="col-12 col-xl-3 col-lg-6">
+      <div class="container-fluid btnDiv">
+      <button class="btn btn-secondary" type="button" @click="addItem">
         Tilføj bord
       </button>
       <button
-        class="btn btn-secondary me-2"
+        class="btn btn-secondary"
         type="button"
         data-bs-toggle="modal"
         data-bs-target="#myModal"
@@ -15,14 +16,15 @@
         Gem bordopstilling
       </button>
       <button
-        class="btn btn-secondary me-1"
+        class="btn btn-secondary"
         type="button"
         @click="createLayout"
       >
         Ny Standart
       </button>
     </div>
-    <div class="col-md-3">
+    </div>
+    <div class="col-12 col-md-6">
       <div>
         <Datepicker v-model="date" :value="date" @update:modelValue="handleDate"></Datepicker>
       </div>
@@ -292,6 +294,8 @@ draggable and  reizable removed
 
 .btnDiv {
   margin-left: 10px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .date {
@@ -371,5 +375,13 @@ draggable and  reizable removed
   background-origin: content-box;
   box-sizing: border-box;
   cursor: pointer;
+}
+
+.gadgetRow{
+  justify-content: center;
+}
+.buttonContainer{
+  justify-content: space-between;
+
 }
 </style>
