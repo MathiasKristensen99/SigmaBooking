@@ -3,7 +3,7 @@
     <div class="col">
       <div class="row calendar" style="justify-content: center">
         <div class="col-3" id="kalender-div" style="text-align: center">
-          <Datepicker :value="date" @update:modelValue="handleDate"></Datepicker>
+          <Datepicker v-model="todaysDate" :value="date" @update:modelValue="handleDate"></Datepicker>
           <br>
           <button class="btn btn-secondary me-2"
                   type="button"
@@ -13,12 +13,10 @@
           </button>
         </div>
       </div>
-
       <div class="container-fluid">
         <div>
           <h2>Reservationer</h2>
         </div>
-
         <div class="row g-3">
           <div class="col-12 col-sm-6 col-md-3" v-for="(booking, index) in bookings"
           v-bind:key="index">
@@ -179,7 +177,9 @@ const bookingStore = BookingStore();
 const tableLayoutService: TableLayoutService = new TableLayoutService();
 const bookingService: BookingService = new BookingService();
 
+
 const date = ref(getCurrentDate_HttpFormat());
+const todaysDate = new Date()
 const inputName = ref("");
 const inputEmail = ref("");
 const inputPhone = ref("");
@@ -189,6 +189,7 @@ const inputStartTime = ref("");
 const inputEndTime = ref("");
 const tableId = ref("");
 const peopleCount = ref();
+
 
 let booking: Booking = {
   id: "",
@@ -204,6 +205,7 @@ let booking: Booking = {
   isEating: false,
   description: ""
 };
+
 
 const handleDate = (modelData) => {
   date.value = modelData;
@@ -262,6 +264,7 @@ function getCurrentDate_HttpFormat(): string {
   const yyyy = today.getFullYear();
   return dd + "%2F" + mm + "%2F" + yyyy;
 }
+
 
 function deleteBooking(id: string) {
   bookingStore.deleteBooking(id);

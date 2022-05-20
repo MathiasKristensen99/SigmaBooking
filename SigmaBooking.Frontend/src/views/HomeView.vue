@@ -22,10 +22,9 @@
         Ny Standart
       </button>
     </div>
-
     <div class="col-md-3">
       <div>
-        <Datepicker :value="date" @update:modelValue="handleDate"></Datepicker>
+        <Datepicker v-model="date" :value="date" @update:modelValue="handleDate"></Datepicker>
       </div>
     </div>
   </div>
@@ -106,7 +105,7 @@ export default {
       layoutId: "",
       layoutDate: "",
       isDefault: true,
-      date: ref(),
+      date: new Date(),
     };
   },
   mounted() {
@@ -216,6 +215,7 @@ export default {
           console.log(error);
         });
     },
+
     updateTableLayout() {
       axios
         .put("https://localhost:7026/api/TableLayouts/" + this.layoutId, {
