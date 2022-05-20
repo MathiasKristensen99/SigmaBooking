@@ -68,7 +68,10 @@
                   <hr class="solid" />
                 </div>
                 <div>
-                  <button class="btn btn-success change">Rediger</button>
+                  <button class="btn btn-success change"
+                          data-bs-toggle="modal"
+                          data-bs-target="#updateBooking" @click="getBookingById(booking.id)">
+                    Rediger</button>
                 </div>
                 <div>
                   <button class="btn btn-danger delete" @click="deleteBooking(booking.id)">Slet</button>
@@ -121,6 +124,47 @@
       </div>
     </div>
   </div>
+  <div class="modal" id="updateBooking">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Rediger reservation</h4>
+          <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+          ></button>
+        </div>
+        <input type="text" class="form-control" v-model="bookingStore.booking.name" placeholder="Navn"> <br/>
+        <input type="text" class="form-control" v-model="bookingStore.booking.phone" placeholder="Tlf nr"><br/>
+        <select class="form-control" v-model="bookingStore.booking.tableId">
+          <option :value="bookingStore.booking.tableId" selected disabled>Vælg bord</option>
+          <option v-for="table in tables" :value="table.id.toString()" v-bind:key="inputName"></option>
+        </select> <br/>
+        <input type="text" class="form-control" v-model="bookingStore.booking.email" placeholder="Email"><br/>
+        <input type="text" class="form-control" v-model="bookingStore.booking.startTime" placeholder="Start tidspunkt"><br/>
+        <input type="text" class="form-control" v-model="bookingStore.booking.endTime" placeholder="Slut tidspunkt"><br/>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" v-model="bookingStore.booking.isEating" />
+          <label class="form-check-label">Spise</label>
+        </div> <br/>
+        <input type="number" class="form-control" v-model="bookingStore.booking.peopleCount" placeholder="Antal personer"><br/>
+        <input type="text" class="form-control" v-model="bookingStore.booking.description" placeholder="Beskrivelse">
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button
+              type="button"
+              class="btn btn-secondary me-3"
+              data-bs-dismiss="modal"
+              @click="createBooking"
+          >
+            Gem
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -130,8 +174,10 @@ import {BookingStore} from "../stores/bookingStore";
 import {ref} from "vue";
 import {Booking} from "../models/Booking";
 import {TableLayoutService} from "../services/tableLayout.service";
+import {BookingService} from "../services/booking.service";
 const bookingStore = BookingStore();
 const tableLayoutService: TableLayoutService = new TableLayoutService();
+const bookingService: BookingService = new BookingService();
 
 const date = ref(getCurrentDate_HttpFormat());
 const inputName = ref("");
@@ -143,6 +189,21 @@ const inputStartTime = ref("");
 const inputEndTime = ref("");
 const tableId = ref("");
 const peopleCount = ref();
+
+let booking: Booking = {
+  id: "",
+  table: undefined,
+  tableId: "",
+  name: "",
+  phone: "",
+  email: "",
+  date: "",
+  peopleCount: 0,
+  startTime: "",
+  endTime: "",
+  isEating: false,
+  description: ""
+};
 
 const handleDate = (modelData) => {
   date.value = modelData;
@@ -204,6 +265,11 @@ function getCurrentDate_HttpFormat(): string {
 
 function deleteBooking(id: string) {
   bookingStore.deleteBooking(id);
+}
+
+function getBookingById(id: string) {
+  bookingStore.getBookingById(id);
+  console.log(bookingStore.booking);
 }
 
 </script>

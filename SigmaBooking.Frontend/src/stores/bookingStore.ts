@@ -1,4 +1,4 @@
-import { defineStore } from "pinia";
+import {defineStore} from "pinia";
 import {BookingService} from "../services/booking.service";
 import {Booking} from "../models/Booking";
 
@@ -8,6 +8,7 @@ export const BookingStore = defineStore({
     id: "bookingStore",
     state: () => ({
         bookings: [] as Booking[],
+        booking: {} as Booking,
     }),
     getters: {
         bookingsFromDate: (state) => {
@@ -48,6 +49,9 @@ export const BookingStore = defineStore({
                     });
                 })
                 .catch((err) => console.log(err));
+        },
+        getBookingById(id: string) {
+            this.booking = this.bookings.find(value => value.id === id);
         },
     },
 });

@@ -10,6 +10,11 @@ export class BookingService {
         return res.data.list;
     }
 
+    async getBookingById(id: string): Promise<Booking> {
+        const res = await http.get<Booking>("api/Bookings/" + id);
+        return res.data;
+    }
+
     async createBooking(
         tableId: string,
         name: string,

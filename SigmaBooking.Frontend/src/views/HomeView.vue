@@ -23,7 +23,6 @@
       </button>
     </div>
 
-
     <div class="col-md-3">
       <div>
         <Datepicker :value="date" @update:modelValue="handleDate"></Datepicker>
@@ -209,7 +208,6 @@ export default {
           this.layoutDate = response.data.date;
           this.isDefault = response.data.isDefault;
           this.layoutId = response.data.id;
-          console.log(this.layoutId);
           for (const responseElement of response.data.tables) {
             this.layout.push(responseElement);
           }
