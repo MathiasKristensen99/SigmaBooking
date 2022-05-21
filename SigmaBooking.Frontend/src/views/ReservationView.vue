@@ -134,28 +134,29 @@
               data-bs-dismiss="modal"
           ></button>
         </div>
-        <input type="text" class="form-control" v-model="bookingStore.booking.name" placeholder="Navn"> <br/>
-        <input type="text" class="form-control" v-model="bookingStore.booking.phone" placeholder="Tlf nr"><br/>
-        <select class="form-control" v-model="bookingStore.booking.tableId">
-          <option :value="bookingStore.booking.tableId" selected disabled>Vælg bord</option>
-          <option v-for="table in tables" :value="table.id.toString()" v-bind:key="inputName"></option>
+        <input type="text" class="form-control" v-model="updateInputName" placeholder="Navn"> <br/>
+        <input type="text" class="form-control" v-model="updateInputPhone" placeholder="Tlf nr"><br/>
+        <Datepicker v-model="todaysDate" :value="date" @update:modelValue="handleUpdateDate"></Datepicker><br/>
+        <select class="form-control" v-model="updateTableId">
+          <option value="" selected disabled>Vælg bord</option>
+          <option v-for="table in tables" :value="table.id.toString()" v-bind:key="updateInputName">{{table.i}}</option>
         </select> <br/>
-        <input type="text" class="form-control" v-model="bookingStore.booking.email" placeholder="Email"><br/>
-        <input type="text" class="form-control" v-model="bookingStore.booking.startTime" placeholder="Start tidspunkt"><br/>
-        <input type="text" class="form-control" v-model="bookingStore.booking.endTime" placeholder="Slut tidspunkt"><br/>
+        <input type="text" class="form-control" v-model="updateInputEmail" placeholder="Email"><br/>
+        <input type="text" class="form-control" v-model="updateInputStartTime" placeholder="Start tidspunkt"><br/>
+        <input type="text" class="form-control" v-model="updateInputEndTime" placeholder="Slut tidspunkt"><br/>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" v-model="bookingStore.booking.isEating" />
+          <input class="form-check-input" type="checkbox" v-model="updateInputIsEating" />
           <label class="form-check-label">Spise</label>
         </div> <br/>
-        <input type="number" class="form-control" v-model="bookingStore.booking.peopleCount" placeholder="Antal personer"><br/>
-        <input type="text" class="form-control" v-model="bookingStore.booking.description" placeholder="Beskrivelse">
+        <input type="number" class="form-control" v-model="updatePeopleCount" placeholder="Antal personer"><br/>
+        <input type="text" class="form-control" v-model="updateInputDescription" placeholder="Beskrivelse">
         <!-- Modal footer -->
         <div class="modal-footer">
           <button
               type="button"
               class="btn btn-secondary me-3"
               data-bs-dismiss="modal"
-              @click="createBooking"
+              @click="updateBooking"
           >
             Gem
           </button>
@@ -190,23 +191,6 @@ const inputEndTime = ref("");
 const tableId = ref("");
 const peopleCount = ref();
 
-
-let booking: Booking = {
-  id: "",
-  table: undefined,
-  tableId: "",
-  name: "",
-  phone: "",
-  email: "",
-  date: "",
-  peopleCount: 0,
-  startTime: "",
-  endTime: "",
-  isEating: false,
-  description: ""
-};
-
-
 const handleDate = (modelData) => {
   date.value = modelData;
   const dd = String(modelData.getDate()).padStart(2, "0");
@@ -222,6 +206,26 @@ let tables = [];
 getTables();
 bookingStore.getBookings(date.value);
 const bookings = ref<Booking[]>(bookingStore.bookingsFromDate);
+
+const handleUpdateDate = (modelData) => {
+  date.value = modelData;
+  const dd = String(modelData.getDate()).padStart(2, "0");
+  const mm = String(modelData.getMonth() + 1).padStart(2, "0");
+  const yyyy = modelData.getFullYear();
+  const datePicked = dd + "%2F" + mm + "%2F" + yyyy
+  updateDate.value = datePicked;
+}
+
+const updateDate = ref(getCurrentDate_HttpFormat());
+const updateInputName = ref("");
+const updateInputEmail = ref("");
+const updateInputPhone = ref("");
+const updateInputDescription = ref("");
+const updateInputIsEating = ref();
+const updateInputStartTime = ref("");
+const updateInputEndTime = ref("");
+const updateTableId = ref("");
+const updatePeopleCount = ref();
 
 function getTables() {
   tableLayoutService.getTableLayoutByDate(date.value)
@@ -257,6 +261,22 @@ function createBooking() {
   console.log(bookingStore.bookingsFromDate);
 }
 
+function updateBooking() {
+  bookingStore.updateBooking(
+      bookingStore.booking.id,
+      updateTableId.value,
+      updateInputName.value,
+      updateInputPhone.value,
+      updateInputEmail.value,
+      updateDate.value,
+      updatePeopleCount.value,
+      updateInputStartTime.value,
+      updateInputEndTime.value,
+      updateInputIsEating.value,
+      updateInputDescription.value
+  );
+}
+
 function getCurrentDate_HttpFormat(): string {
   let today = new Date();
   const dd = String(today.getDate()).padStart(2, "0");
@@ -273,6 +293,15 @@ function deleteBooking(id: string) {
 function getBookingById(id: string) {
   bookingStore.getBookingById(id);
   console.log(bookingStore.booking);
+  updateInputName.value = bookingStore.booking.name;
+  updateInputPhone.value = bookingStore.booking.phone;
+  updateInputEmail.value = bookingStore.booking.email;
+  updateInputStartTime.value = bookingStore.booking.startTime;
+  updateInputEndTime.value = bookingStore.booking.endTime;
+  updateInputIsEating.value = bookingStore.booking.isEating;
+  updateTableId.value = bookingStore.booking.tableId;
+  updateInputDescription.value = bookingStore.booking.description;
+  updatePeopleCount.value = bookingStore.booking.peopleCount;
 }
 
 </script>

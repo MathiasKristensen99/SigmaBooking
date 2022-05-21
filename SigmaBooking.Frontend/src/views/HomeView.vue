@@ -1,32 +1,31 @@
 <template>
-
   <div class="row gadgetRow">
     <div class="col-12 col-xl-3 col-lg-6">
       <div class="container-fluid btnDiv">
-      <button class="btn btn-secondary" type="button" @click="addItem">
-        Tilføj bord
-      </button>
-      <button
-        class="btn btn-secondary"
-        type="button"
-        data-bs-toggle="modal"
-        data-bs-target="#myModal"
-        @click="updateTableLayout"
-      >
-        Gem bordopstilling
-      </button>
-      <button
-        class="btn btn-secondary"
-        type="button"
-        @click="createLayout"
-      >
-        Ny Standart
-      </button>
-    </div>
+        <button class="btn btn-secondary" type="button" @click="addItem">
+          Tilføj bord
+        </button>
+        <button
+          class="btn btn-secondary"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#myModal"
+          @click="updateTableLayout"
+        >
+          Gem bordopstilling
+        </button>
+        <button class="btn btn-secondary" type="button" @click="createLayout">
+          Ny Standart
+        </button>
+      </div>
     </div>
     <div class="col-12 col-md-6">
       <div>
-        <Datepicker v-model="date" :value="date" @update:modelValue="handleDate"></Datepicker>
+        <Datepicker
+          v-model="date"
+          :value="date"
+          @update:modelValue="handleDate"
+        ></Datepicker>
       </div>
     </div>
   </div>
@@ -377,11 +376,10 @@ draggable and  reizable removed
   cursor: pointer;
 }
 
-.gadgetRow{
+.gadgetRow {
   justify-content: center;
 }
-.buttonContainer{
+.buttonContainer {
   justify-content: space-between;
-
 }
 </style>

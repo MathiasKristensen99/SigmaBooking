@@ -120,10 +120,25 @@ public class BookingRepository : IBookingRepository
         
         _bookingsCollection.ReplaceOne(filter, entity);
 
+        var table = _tablesCollection.Find(Builders<TableEntity>.Filter.Eq("_id", ObjectId.Parse(booking.TableId)))
+            .FirstOrDefault();
+        
+        var newTable = new Table
+        {
+            Id = table.Id,
+            I = table.I,
+            X = table.X,
+            Y = table.Y,
+            W = table.W,
+            H = table.H,
+            Static = table.Static
+        };
+        
         return new Booking
         {
             Id = entity.Id,
             TableId = entity.TableId,
+            Table = newTable,
             Name = entity.Name,
             Email = entity.Email,
             PeopleCount = entity.PeopleCount,

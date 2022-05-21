@@ -15,6 +15,10 @@ export const BookingStore = defineStore({
             if (state.bookings) return state.bookings;
             else return null;
         },
+        bookingName: (state) => {
+            if (state.booking != undefined) return state.booking.name;
+            else return null;
+        },
     },
     actions: {
         getBookings(date: string) {
@@ -53,5 +57,24 @@ export const BookingStore = defineStore({
         getBookingById(id: string) {
             this.booking = this.bookings.find(value => value.id === id);
         },
+        updateBooking(
+            id: string,
+            tableId: string,
+            name: string,
+            phone: string,
+            email: string,
+            date: string,
+            peopleCount: number,
+            startTime: string,
+            endTime: string,
+            isEating: boolean,
+            description: string
+        ) {
+            bookingService.updateBooking(id, tableId, name, phone, email, date, peopleCount, startTime, endTime, isEating, description)
+                .then((res) => {
+                    this.getBookings(date)
+                })
+                .catch((err) => console.log(err));
+        }
     },
 });

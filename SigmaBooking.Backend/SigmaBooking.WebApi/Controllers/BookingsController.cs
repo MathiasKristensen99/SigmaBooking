@@ -156,7 +156,7 @@ namespace SigmaBooking.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<BookingDto> UpdateBooking(string id, BookingDto dto)
+        public ActionResult<BookingDto> UpdateBooking(string id, CreateBookingDto dto)
         {
             var booking = _bookingService.UpdateBooking(new Booking
             {

@@ -1,5 +1,6 @@
 import http from "./http.client";
 import { Booking } from "../models/Booking";
+import {end} from "@popperjs/core";
 
 export class BookingService {
     async getBookingsFromDate(date: string): Promise<Booking[]> {
@@ -43,11 +44,39 @@ export class BookingService {
 
     async deleteBooking(id: string) {
         await http.delete("api/Bookings/" + id)
-            .catch((res) => {
+            .then((res) => {
                 return res.data
             })
-            .then((err) => {
+            .catch((err) => {
                 console.log(err);
             });
+    }
+
+    async updateBooking(
+        id: string,
+        tableId: string,
+        name: string,
+        phone: string,
+        email: string,
+        date: string,
+        peopleCount: number,
+        startTime: string,
+        endTime: string,
+        isEating: boolean,
+        description: string): Promise<Booking> {
+        const res = await http.put("api/Bookings/" + id, {
+            id: id,
+            tableId: tableId,
+            name: name,
+            phone: phone,
+            email: email,
+            date: date,
+            peopleCount: peopleCount,
+            startTime: startTime,
+            endTime: endTime,
+            isEating: isEating,
+            description: description
+        });
+        return res.data;
     }
 }
