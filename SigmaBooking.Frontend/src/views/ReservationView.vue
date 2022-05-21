@@ -296,6 +296,7 @@ function getBookingById(id: string) {
   updateInputName.value = bookingStore.booking.name;
   updateInputPhone.value = bookingStore.booking.phone;
   updateInputEmail.value = bookingStore.booking.email;
+  updateDate.value = bookingStore.booking.date;
   updateInputStartTime.value = bookingStore.booking.startTime;
   updateInputEndTime.value = bookingStore.booking.endTime;
   updateInputIsEating.value = bookingStore.booking.isEating;
