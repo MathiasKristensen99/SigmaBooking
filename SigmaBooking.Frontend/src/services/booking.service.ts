@@ -34,6 +34,7 @@ export class BookingService {
             phone: phone,
             email: email,
             date: date,
+            peopleCount: peopleCount,
             startTime: startTime,
             endTime: endTime,
             isEating: isEating,

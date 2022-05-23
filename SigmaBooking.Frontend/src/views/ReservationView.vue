@@ -253,7 +253,6 @@ function sortBodyCount(){
   }
 }
 
-
 let tables = [];
 getTables();
 bookingStore.getBookings(date.value);
