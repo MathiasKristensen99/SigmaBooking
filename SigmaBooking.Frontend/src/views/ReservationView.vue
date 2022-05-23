@@ -97,6 +97,11 @@
       </div>
     </div>
   </div>
+
+
+
+
+
   <div class="modal" id="addBooking">
     <div class="modal-dialog card">
       <div class="modal-content create_background">
@@ -118,14 +123,10 @@
         <input type="text" class="form-control" v-model="inputEmail" placeholder="Email"> <br/>
         <input type="text" class="form-control" v-model="inputStartTime" placeholder="Start tidspunkt"> <br/>
         <input type="text" class="form-control" v-model="inputEndTime" placeholder="Slut tidspunkt"> <br/>
-
-
         <div>
           Spise
           <input class="form-check-input" type="checkbox" v-model="inputIsEating">
         </div>
-
-
         <input type="number" class="form-control antal_personer" v-model="peopleCount" placeholder="Antal personer"> <br/>
         <input type="text" class="form-control" v-model="inputDescription" placeholder="Beskrivelse">
         <!-- Modal footer -->
@@ -142,9 +143,14 @@
       </div>
     </div>
   </div>
+
+
+
+
+
   <div class="modal" id="updateBooking">
-    <div class="modal-dialog">
-      <div class="modal-content">
+    <div class="modal-dialog card">
+      <div class="modal-content create_background">
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Rediger reservation</h4>
@@ -164,9 +170,9 @@
         <input type="text" class="form-control" v-model="updateInputEmail" placeholder="Email"><br/>
         <input type="text" class="form-control" v-model="updateInputStartTime" placeholder="Start tidspunkt"><br/>
         <input type="text" class="form-control" v-model="updateInputEndTime" placeholder="Slut tidspunkt"><br/>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" v-model="updateInputIsEating" />
-          <label class="form-check-label">Spise</label>
+        <div>
+          Spise
+          <input class="form-check-input" type="checkbox" v-model="inputIsEating">
         </div>
         <input type="number" class="form-control" v-model="updatePeopleCount" placeholder="Antal personer"><br/>
         <input type="text" class="form-control" v-model="updateInputDescription" placeholder="Beskrivelse">
