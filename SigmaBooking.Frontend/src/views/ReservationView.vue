@@ -97,8 +97,8 @@
     </div>
   </div>
   <div class="modal" id="addBooking">
-    <div class="modal-dialog">
-      <div class="modal-content">
+    <div class="modal-dialog card">
+      <div class="modal-content create_background">
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Tilføj ny reservation</h4>
@@ -117,11 +117,12 @@
         <input type="text" class="form-control" v-model="inputEmail" placeholder="Email"> <br/>
         <input type="text" class="form-control" v-model="inputStartTime" placeholder="Start tidspunkt"> <br/>
         <input type="text" class="form-control" v-model="inputEndTime" placeholder="Slut tidspunkt"> <br/>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" v-model="inputIsEating" />
+        <div class="card-body">
           <label class="form-check-label">Spise</label>
+          <br>
+          <input class="form-check-input" type="checkbox" v-model="inputIsEating" />
         </div> <br/>
-        <input type="number" class="form-control" v-model="peopleCount" placeholder="Antal personer"> <br/>
+        <input type="number" class="form-control antal_personer" v-model="peopleCount" placeholder="Antal personer"> <br/>
         <input type="text" class="form-control" v-model="inputDescription" placeholder="Beskrivelse">
         <!-- Modal footer -->
         <div class="modal-footer">
@@ -162,7 +163,7 @@
         <div class="form-check">
           <input class="form-check-input" type="checkbox" v-model="updateInputIsEating" />
           <label class="form-check-label">Spise</label>
-        </div> <br/>
+        </div>
         <input type="number" class="form-control" v-model="updatePeopleCount" placeholder="Antal personer"><br/>
         <input type="text" class="form-control" v-model="updateInputDescription" placeholder="Beskrivelse">
         <!-- Modal footer -->
@@ -401,5 +402,9 @@ function getBookingById(id: string) {
 .tel {
   margin-top: -25px;
 }
+.create_background{
+  background-color: transparent;
+}
+
 
 </style>
