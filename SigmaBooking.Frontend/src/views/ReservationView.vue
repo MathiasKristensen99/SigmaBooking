@@ -50,6 +50,7 @@
                 <input
                   class="form-check-input"
                   type="checkbox"
+                  onclick="return false;"
                   v-model="booking.isEating"
                   id="skalSpise"
                 />
