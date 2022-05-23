@@ -367,6 +367,7 @@ function getBookingById(id: string) {
 
 .btnDiv {
   margin-left: 10px;
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
 }
