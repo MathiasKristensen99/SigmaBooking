@@ -8,11 +8,3 @@ services:
     container_name: "${API_CONT_NAME}"
     ports:
       - "${API_PORT}:80"   
-     
-  web:
-    build:
-      context: "SigmaBooking.Frontend"
-    image: "localhost:7002/sigmabooking-web:${IMAGE_TAG}"
-    container_name: "${WEB_CONT_NAME}"
-    ports:
-      - "${API_PORT}:8080" 
