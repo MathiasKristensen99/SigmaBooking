@@ -19,7 +19,6 @@ pipeline {
                 sh "docker-compose --env-file config/Test.env build api"
             }
         }
-        /* 
         stage("Building the frontend") {
             steps {
                 dir("SigmaBooking.Frontend") {
@@ -28,7 +27,6 @@ pipeline {
                 sh "docker-compose --env-file config/Test.env build web"
             }
         }
-        */
         stage ("Testing the API") {
             steps {
                 dir("SigmaBooking.Backend/SigmaBooking.Core.Test") {
