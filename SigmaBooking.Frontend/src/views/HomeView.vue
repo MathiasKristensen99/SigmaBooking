@@ -15,7 +15,7 @@
           Gem bordopstilling
         </button>
         <button class="btn btn-secondary" type="button" @click="createLayout">
-          Ny Standart
+          Ny Standard
         </button>
       </div>
     </div>
