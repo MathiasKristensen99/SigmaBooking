@@ -117,11 +117,14 @@
         <input type="text" class="form-control" v-model="inputEmail" placeholder="Email"> <br/>
         <input type="text" class="form-control" v-model="inputStartTime" placeholder="Start tidspunkt"> <br/>
         <input type="text" class="form-control" v-model="inputEndTime" placeholder="Slut tidspunkt"> <br/>
-        <div class="card-body">
-          <label class="form-check-label">Spise</label>
-          <br>
-          <input class="form-check-input" type="checkbox" v-model="inputIsEating" />
-        </div> <br/>
+
+
+        <div>
+          Spise
+          <input class="form-check-input" type="checkbox" v-model="inputIsEating">
+        </div>
+
+
         <input type="number" class="form-control antal_personer" v-model="peopleCount" placeholder="Antal personer"> <br/>
         <input type="text" class="form-control" v-model="inputDescription" placeholder="Beskrivelse">
         <!-- Modal footer -->
