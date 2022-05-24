@@ -1,4 +1,6 @@
-﻿namespace SigmaBooking.WebApi.Dtos;
+﻿using System;
+
+namespace SigmaBooking.WebApi.Dtos;
 
 public class BookingDto
 {

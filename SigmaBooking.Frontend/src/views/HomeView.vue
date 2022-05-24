@@ -5,6 +5,7 @@
     <button class="btn btn-secondary me-2" type="button" @click="addItem">
       Tilføj bord
     </button>
+
     <button
       class="btn btn-secondary me-2"
       type="button"
@@ -14,22 +15,53 @@
     >
       Gem bordopstilling
     </button>
+
     <button
       class="btn btn-secondary me-2"
       type="button"
-      @click="checkCredLogin"
       data-bs-toggle="modal"
       data-bs-target="#loginModal"
     >
       Lav ny bordopstilling for denne dag
     </button>
+
     <div class="modal" id="loginModal">
       <div class="modal-dialog">
         <div class="modal-content">
-
           <div class="modal-header">
             <h4 class="modal-title">Enter Credentials</h4>
-            <button type="button" @click=""
+
+            <div class="modal-body">
+              <input
+                class="inputField"
+                type="text"
+                id="credentials"
+                form="credentials"
+              />
+            </div>
+
+            <button
+              type="submit"
+              class="submitCred"
+              data-bs-dismiss="modal"
+              @click="checkCredField()"
+            >
+              Submit
+            </button>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="form-check">
       <input class="form-check-input" type="checkbox" v-model="draggable" />
@@ -75,6 +107,7 @@
       </grid-item>
     </grid-layout>
   </div>
+
   <div class="modal" id="myModal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -173,7 +206,18 @@ export default {
         });
     },
 
-    checkCredLogin() {},
+    checkCredField: function () {
+      var checkSub = document.getElementById("credentials").value;
+      if (checkSub === "") {
+        console.log("No credentials");
+        return false;
+      } else {
+        console.log("Credentials have been entered and sent");
+        return true;
+      }
+    },
+
+    checkCredLogin: function () {},
 
     createLayout() {
       let tables = [];
@@ -209,7 +253,6 @@ export default {
           console.log(error);
         });
     },
-    adminLogin() {},
 
     getLayout() {
       axios

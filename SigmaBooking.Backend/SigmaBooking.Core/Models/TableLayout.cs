@@ -1,4 +1,6 @@
-﻿namespace SigmaBooking.Core.Models;
+﻿using System.Collections.Generic;
+
+namespace SigmaBooking.Core.Models;
 
 public class TableLayout
 {
