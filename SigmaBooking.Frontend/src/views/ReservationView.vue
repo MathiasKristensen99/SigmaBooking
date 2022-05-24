@@ -57,7 +57,7 @@
                 <hr class="solid" />
               </div>
               <div class="card-body">
-                Notes: {{booking.description}}
+                Note: {{booking.description}}
                 <hr class="solid" />
               </div>
 
