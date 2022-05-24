@@ -37,14 +37,14 @@
           v-bind:key="index">
             <div class="card">
               <div class="card-header">
-                Bord: {{ booking.table.i || "???"}}
+                Bord: {{ booking.table.i}}
                 <hr class="solid" />
               </div>
               <div class="card-body">
-                Navn: {{booking.name || "???" }}
+                Navn: {{booking.name}}
                 <hr class="solid" />
               </div>
-              <div class="card-body">{{ booking.startTime || "???"}} - {{booking.endTime || "???" }} (px: {{booking.peopleCount || "???"}})</div>
+              <div class="card-body">{{ booking.startTime}} - {{booking.endTime}} (px: {{booking.peopleCount}})</div>
               <div class="card-body">
                 Spise
                 <input
@@ -57,7 +57,7 @@
                 <hr class="solid" />
               </div>
               <div class="card-body">
-                Notes: {{booking.description || ". . ."}}
+                Notes: {{booking.description}}
                 <hr class="solid" />
               </div>
 
@@ -74,11 +74,11 @@
               </div>
               <div :id="'collapse' + index" class="collapse">
                 <div class="card-body tel">
-                  Tlf nr. {{ booking.phone || "???"}}
+                  Tlf nr. {{ booking.phone}}
                   <hr class="solid" />
                 </div>
                 <div class="card-body">
-                  Email: {{ booking.email || "???"}}
+                  Email: {{ booking.email}}
                   <hr class="solid" />
                 </div>
                 <div>
