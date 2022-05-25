@@ -18,9 +18,11 @@ builder.Services.Configure<SigmaBookingDatabaseSettings>(builder.Configuration.G
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<ITableService, TableService>();
 builder.Services.AddScoped<ITableLayoutService, TableLayoutService>();
+builder.Services.AddScoped<ICredentialsService, CredentialsService>();
 builder.Services.AddSingleton<IBookingRepository, BookingRepository>();
 builder.Services.AddSingleton<ITableRepository, TableRepository>();
 builder.Services.AddSingleton<ITableLayoutRepository, TableLayoutRepository>();
+builder.Services.AddSingleton<ICredentialsRepository, CredentialsRepository>();
 
 builder.Services.AddCors(options => options
     .AddPolicy("dev-policy", policyBuilder =>
