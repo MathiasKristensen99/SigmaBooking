@@ -172,6 +172,6 @@ public class TableLayoutRepository : ITableLayoutRepository
 
     public void DeleteTableLayout(string id)
     {
-        throw new NotImplementedException();
+        _tablesLayoutCollection.DeleteOne(entity => entity.Id == id);
     }
 }

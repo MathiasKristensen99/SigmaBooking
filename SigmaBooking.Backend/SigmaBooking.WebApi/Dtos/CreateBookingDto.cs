@@ -1,11 +1,8 @@
-﻿using System;
+﻿namespace SigmaBooking.WebApi.Dtos;
 
-namespace SigmaBooking.WebApi.Dtos;
-
-public class BookingDto
+public class CreateBookingDto
 {
     public string Id { get; set; }
-    public TableDto Table { get; set; }
     public string TableId { get; set; }
     public string Name { get; set; }
     public string Phone { get; set; }

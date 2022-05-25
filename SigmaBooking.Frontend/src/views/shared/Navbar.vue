@@ -1,10 +1,10 @@
 <template>
   <header>
     <div class="wrapper">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
           <a class="navbar-brand" href="/home">
-            <img class="logo" src="src/assets/sigma-logo-without-bg.png" />
+            <img class="logo" src="/src/assets/sigma-logo-without-bg.png" />
           </a>
           <button
             class="navbar-toggler"
@@ -54,12 +54,12 @@ export default {
 
 <style scoped>
 .wrapper {
-  margin: 120px;
+  margin: 90px;
 }
 .logo {
-  width: 210px;
-  height: 87px;
-  max-height: 87px;
-  max-width: 210px;
+  width: 153px;
+  height: 63px;
+  max-height: 63px;
+  max-width: 153px;
 }
 </style>

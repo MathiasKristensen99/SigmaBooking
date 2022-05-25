@@ -12,8 +12,8 @@ public class Booking
     public string Email { get; set; }
     public int PeopleCount { get; set; }
     public string Date { get; set; }
-    public DateTime StartTime { get; set; }
-    public DateTime EndTime { get; set; }
+    public string StartTime { get; set; }
+    public string EndTime { get; set; }
     public bool IsEating { get; set; }
     public string Description { get; set; }
 }
