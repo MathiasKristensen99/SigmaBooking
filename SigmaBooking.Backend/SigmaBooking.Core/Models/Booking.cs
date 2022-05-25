@@ -1,4 +1,6 @@
-﻿namespace SigmaBooking.Core.Models;
+﻿using System;
+
+namespace SigmaBooking.Core.Models;
 
 public class Booking
 {
