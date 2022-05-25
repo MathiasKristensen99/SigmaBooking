@@ -18,7 +18,7 @@ public class CredentialsRepository : ICredentialsRepository
         var mongoDatabase = mongoClient.GetDatabase(options.Value.DatabaseName);
 
         _credentialsCollection = mongoDatabase.GetCollection<CredentialsEntity>(
-            options.Value.BookingsCollectionName);
+            options.Value.CredentialsCollectionName);
     }
 
     public CredentialsModel CreateCredentials(CredentialsModel credentialsModel)
