@@ -40,7 +40,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("dev-policy");
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
