@@ -18,22 +18,22 @@ namespace SigmaBooking.WebApi.Controllers;
             _credentialsService = service;
         }
 
-        // [HttpPost]
-        // public ActionResult<CredentialsDTO> CreateCredentials([FromBody] CredentialsDTO dto)
-        // {
-        //     var credentialsFromDto = new CredentialsModel
-        //     {
-        //         Credentials = dto.Credentials
-        //     };
-        //
-        //     try
-        //     {
-        //         var newCredentials = _credentialsService.CreateCredentials(credentialsFromDto); 
-        //         return Created()
-        //     }
-        //     catch (ArgumentException e)
-        //     {
-        //         return BadRequest(e.Message);
-        //     }
-        // }
+        [HttpPost]
+        public ActionResult<CredentialsDTO> CreateCredentials([FromBody] CredentialsDTO dto)
+        {
+            var credentialsFromDto = new CredentialsModel
+            {
+                Credentials = dto.Credentials
+            };
+        
+            try
+            {
+                var newCredentials = _credentialsService.CreateCredentials(credentialsFromDto);
+                return Created($"https://localhost:7026/api/credentials/{newCredentials.Id}", newCredentials);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
