@@ -2,11 +2,12 @@
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using SigmaBooking.Core.Models;
+using SigmaBooking.Domain.IRepositories;
 using SigmaBooking.MongoDB.Entities;
 
 namespace SigmaBooking.MongoDB.Repositories;
 
-public class CredentialsRepository
+public class CredentialsRepository : ICredentialsRepository
 {
     private readonly IMongoCollection<CredentialsEntity> _credentialsCollection;
 
@@ -20,19 +21,24 @@ public class CredentialsRepository
             options.Value.BookingsCollectionName);
     }
 
-    public Credentials CreateCredentials(Credentials credentials)
+    public CredentialsModel CreateCredentials(CredentialsModel credentialsModel)
     {
         var credentialsEntity = new CredentialsEntity
         {
-            Id = credentials.Id,
-            credentials = credentials.credentials
+            Id = credentialsModel.Id,
+            credentials = credentialsModel.Credentials
         };
         _credentialsCollection.InsertOne(credentialsEntity);
 
-        return new Credentials
+        return new CredentialsModel
         {
             Id = credentialsEntity.Id,
-            credentials = credentialsEntity.credentials
+            Credentials = credentialsEntity.credentials
         };
+    }
+
+    public void DeleteCredentials(string id)
+    {
+        _credentialsCollection.DeleteOne(ent => ent.Id == id);
     }
 }

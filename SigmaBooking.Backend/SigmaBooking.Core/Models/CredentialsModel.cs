@@ -1,7 +1,7 @@
 ﻿namespace SigmaBooking.Core.Models;
 
-public class Credentials
+public class CredentialsModel
 {
     public string Id { get; set; }
-    public string credentials { get; set; }
+    public string Credentials { get; set; }
 }
