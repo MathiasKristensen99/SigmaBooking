@@ -1,113 +1,107 @@
 <template>
-  <br />
-  <div>
-    <p>{{ currentDate() }}</p>
-    <button class="btn btn-secondary me-2" type="button" @click="addItem">
-      Tilføj bord
-    </button>
+  <div class="row gadgetRow">
+    <div class="col-12 col-xl-3 col-lg-6">
+      <div class="container-fluid btnDiv">
+        <button class="btn btn-secondary" type="button" @click="addItem">
+          Tilføj bord
+        </button>
+        <button
+          class="btn btn-secondary"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#myModal"
+          @click="updateTableLayout"
+        >
+          Gem bordopstilling
+        </button>
 
-    <button
-      class="btn btn-secondary me-2"
-      type="button"
-      @click="updateTableLayout"
-      data-bs-toggle="modal"
-      data-bs-target="#myModal"
-    >
-      Gem bordopstilling
-    </button>
+        <button
+          class="btn btn-secondary"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#loginModal"
+          @click="createLayout"
+        >
+          Ny Standard
+        </button>
 
-    <button
-      class="btn btn-secondary me-2"
-      type="button"
-      data-bs-toggle="modal"
-      data-bs-target="#loginModal"
-    >
-      Lav ny bordopstilling for denne dag
-    </button>
+        <div class="modal" id="loginModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Enter Credentials</h4>
 
-    <div class="modal" id="loginModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Enter Credentials</h4>
+                <div class="modal-body">
+                  <input
+                    class="inputField"
+                    type="text"
+                    id="credentials"
+                    form="credentials"
+                  />
+                </div>
 
-            <div class="modal-body">
-              <input
-                class="inputField"
-                type="text"
-                id="credentials"
-                form="credentials"
-              />
+                <button
+                  type="submit"
+                  class="submitCred"
+                  data-bs-dismiss="modal"
+                  @click="checkCredField()"
+                >
+                  Submit
+                </button>
+              </div>
+
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
             </div>
-
-            <button
-              type="submit"
-              class="submitCred"
-              data-bs-dismiss="modal"
-              @click="checkCredField()"
-            >
-              Submit
-            </button>
-          </div>
-
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-danger"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" v-model="draggable" />
-      <label class="form-check-label">Draggable</label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" v-model="resizable" />
-      <label class="form-check-label">Resizable</label>
-    </div>
-
-    <div class="col-3">
+    <div class="col-12 col-md-6">
       <div>
-        <Datepicker v-model="date"></Datepicker>
+        <Datepicker
+          v-model="date"
+          :value="date"
+          @update:modelValue="handleDate"
+        ></Datepicker>
       </div>
     </div>
-
-    <grid-layout
-      v-model:layout="layout"
-      :col-num="colNum"
-      :row-height="40"
-      :is-draggable="draggable"
-      :is-resizable="resizable"
-      :responsive="false"
-      :vertical-compact="false"
-      :prevent-collision="true"
-      :use-css-transforms="true"
-    >
-      <grid-item
-        v-for="item in layout"
-        :static="item.static"
-        :x="item.x"
-        :y="item.y"
-        :w="item.w"
-        :h="item.h"
-        :i="item.i"
-      >
-        <span class="text"
-          >{{ item.i }}
-          <br />
-          <button class="click">Click</button>
-        </span>
-        <span class="remove" @click="removeItem(item.id)">x</span>
-      </grid-item>
-    </grid-layout>
   </div>
 
+  <grid-layout
+    v-model:layout="layout"
+    :col-num="colNum"
+    :row-height="40"
+    :is-draggable="draggable"
+    :is-resizable="resizable"
+    :responsive="false"
+    :vertical-compact="false"
+    :prevent-collision="true"
+    :use-css-transforms="true"
+  >
+    <grid-item
+      v-for="item in layout"
+      :static="item.static"
+      :x="item.x"
+      :y="item.y"
+      :w="item.w"
+      :h="item.h"
+      :i="item.i"
+    >
+      <span class="text">
+        <button class="click">{{ item.i }}</button>
+      </span>
+      <span class="remove" @click="removeItem(item.id)">x</span>
+    </grid-item>
+  </grid-layout>
   <div class="modal" id="myModal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -140,6 +134,7 @@ import { GridLayout, GridItem } from "vue-grid-layout";
 import axios from "axios";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
+import { ref } from "vue";
 
 export default {
   components: {
@@ -147,7 +142,6 @@ export default {
     GridItem,
     Datepicker,
   },
-
   data() {
     return {
       layout: [],
@@ -158,7 +152,7 @@ export default {
       layoutId: "",
       layoutDate: "",
       isDefault: true,
-      date: null,
+      date: new Date(),
     };
   },
   mounted() {
@@ -166,6 +160,12 @@ export default {
     this.index = this.layout.length;
   },
   methods: {
+    selectNewDate() {
+      const datepicker = ref(null);
+      if (datepicker.value) {
+        console.log(datepicker.value.toString());
+      }
+    },
     addItem: function () {
       const item = {
         x: 0,
@@ -217,8 +217,6 @@ export default {
       }
     },
 
-    checkCredLogin: function () {},
-
     createLayout() {
       let tables = [];
       for (const item of this.layout) {
@@ -248,11 +246,14 @@ export default {
         })
         .then((response) => {
           console.log(response);
+          this.layout = [];
+          this.getLayout();
         })
         .catch((error) => {
           console.log(error);
         });
     },
+    adminLogin() {},
 
     getLayout() {
       axios
@@ -265,7 +266,6 @@ export default {
           this.layoutDate = response.data.date;
           this.isDefault = response.data.isDefault;
           this.layoutId = response.data.id;
-          console.log(this.layoutId);
           for (const responseElement of response.data.tables) {
             this.layout.push(responseElement);
           }
@@ -274,6 +274,7 @@ export default {
           console.log(error);
         });
     },
+
     updateTableLayout() {
       axios
         .put("https://localhost:7026/api/TableLayouts/" + this.layoutId, {
@@ -326,10 +327,37 @@ export default {
     } else return (button.disabled = true);
   },
 };
+
+/*
+draggable and  reizable removed
+
+<div class="col-1">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" v-model="draggable" />
+        <label class="form-check-label">Draggable</label>
+      </div>
+    </div>
+    <div class="col-1">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" v-model="resizable" />
+        <label class="form-check-label">Resizable</label>
+      </div>
+    </div>
+ */
 </script>
 
 <style>
 /*************************************/
+
+.btnDiv {
+  margin-left: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.date {
+  text-align: center;
+}
 
 .btn-primary {
   background-color: black;
@@ -404,5 +432,12 @@ export default {
   background-origin: content-box;
   box-sizing: border-box;
   cursor: pointer;
+}
+
+.gadgetRow {
+  justify-content: center;
+}
+.buttonContainer {
+  justify-content: space-between;
 }
 </style>
