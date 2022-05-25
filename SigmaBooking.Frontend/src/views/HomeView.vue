@@ -14,11 +14,57 @@
         >
           Gem bordopstilling
         </button>
-        <button class="btn btn-secondary" type="button" @click="createLayout">
+
+        <button
+          class="btn btn-secondary"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#loginModal"
+          @click="createLayout"
+        >
           Ny Standard
         </button>
+
+        <div class="modal" id="loginModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Enter Credentials</h4>
+
+                <div class="modal-body">
+                  <input
+                    class="inputField"
+                    type="text"
+                    id="credentials"
+                    form="credentials"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  class="submitCred"
+                  data-bs-dismiss="modal"
+                  @click="checkCredField()"
+                >
+                  Submit
+                </button>
+              </div>
+
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
     <div class="col-12 col-md-6">
       <div>
         <Datepicker
@@ -159,6 +205,18 @@ export default {
           console.log(error);
         });
     },
+
+    checkCredField: function () {
+      var checkSub = document.getElementById("credentials").value;
+      if (checkSub === "") {
+        console.log("No credentials");
+        return false;
+      } else {
+        console.log("Credentials have been entered and sent");
+        return true;
+      }
+    },
+
     createLayout() {
       let tables = [];
       for (const item of this.layout) {
