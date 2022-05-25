@@ -1,6 +1,10 @@
 <template>
   <div class="about">
     <h1>This is an about page</h1>
+    <img
+      src="https://alternative.me/crypto/fear-and-greed-index.png"
+      alt="Latest Crypto Fear & Greed Index"
+    />
   </div>
 </template>
 

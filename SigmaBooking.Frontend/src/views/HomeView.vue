@@ -33,6 +33,7 @@
 
                 <div class="modal-body">
                   <input
+                    v-model="credentials"
                     class="inputField"
                     type="text"
                     id="credentials"
@@ -44,7 +45,7 @@
                   type="submit"
                   class="submitCred"
                   data-bs-dismiss="modal"
-                  @click="checkCredField()"
+                  @click="getCredentials()"
                 >
                   Submit
                 </button>
@@ -153,6 +154,8 @@ export default {
       layoutDate: "",
       isDefault: true,
       date: new Date(),
+      credentials: "",
+      loggedInId: "",
     };
   },
   mounted() {
@@ -206,54 +209,57 @@ export default {
         });
     },
 
-    checkCredField: function () {
-      var checkSub = document.getElementById("credentials").value;
-      if (checkSub === "") {
-        console.log("No credentials");
-        return false;
-      } else {
-        console.log("Credentials have been entered and sent");
-        return true;
-      }
+    getCredentials: function () {
+      axios
+        .get("https://localhost:7026/api/credentials/" + this.credentials)
+        .then((response) => {
+          if (response.data.credentials === this.credentials) {
+            this.loggedInId = response.data.id;
+            console.log(this.loggedInId);
+            return true;
+          }
+          return false;
+        });
     },
 
     createLayout() {
-      let tables = [];
-      for (const item of this.layout) {
-        const table = {
-          id: "string",
-          x: item.x,
-          y: item.y,
-          w: item.w,
-          h: item.h,
-          i: item.i,
-          static: item.static,
+      if (!this.loggedInId === "") {
+        let tables = [];
+        for (const item of this.layout) {
+          const table = {
+            id: "string",
+            x: item.x,
+            y: item.y,
+            w: item.w,
+            h: item.h,
+            i: item.i,
+            static: item.static,
+          };
+          tables.push(table);
+        }
+        const tableLayout = {
+          isDefault: false,
+          date: this.currentDateHttpFormat().toString(),
+          tables: tables,
         };
-        tables.push(table);
+        console.log(tableLayout);
+        axios
+          .post("https://localhost:7026/api/TableLayouts/", {
+            id: "",
+            isDefault: tableLayout.isDefault,
+            date: tableLayout.date,
+            tables: tableLayout.tables,
+          })
+          .then((response) => {
+            console.log(response);
+            this.layout = [];
+            this.getLayout();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
-      const tableLayout = {
-        isDefault: false,
-        date: this.currentDateHttpFormat().toString(),
-        tables: tables,
-      };
-      console.log(tableLayout);
-      axios
-        .post("https://localhost:7026/api/TableLayouts/", {
-          id: "",
-          isDefault: tableLayout.isDefault,
-          date: tableLayout.date,
-          tables: tableLayout.tables,
-        })
-        .then((response) => {
-          console.log(response);
-          this.layout = [];
-          this.getLayout();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
     },
-    adminLogin() {},
 
     getLayout() {
       axios

@@ -38,16 +38,16 @@ public class CredentialsRepository : ICredentialsRepository
         };
     }
 
-    public CredentialsModel GetCredentials(string id)
+    public CredentialsModel GetCredentials(string credentials)
     {
-        var credentials = _credentialsCollection
+        var newCredentials = _credentialsCollection
             .Find(Builders<CredentialsEntity>.Filter
-                .Eq("_id", ObjectId.Parse(id)))
+                .Eq("credentials", credentials))
             .FirstOrDefault();
         return new CredentialsModel
         {
-            Id = credentials.Id,
-            Credentials = credentials.credentials
+            Id = newCredentials.Id,
+            Credentials = newCredentials.credentials
         };
     }
 

@@ -18,9 +18,9 @@ public class CredentialsService : ICredentialsService
         return _repository.CreateCredentials(credentialsModel);
     }
 
-    public CredentialsModel GetCredentials(string id)
+    public CredentialsModel GetCredentials(string credentials)
     {
-        return _repository.GetCredentials(id);
+        return _repository.GetCredentials(credentials);
     }
 
     public void DeleteCredentials(string id)

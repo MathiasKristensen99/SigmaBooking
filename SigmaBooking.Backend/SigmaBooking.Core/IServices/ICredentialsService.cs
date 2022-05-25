@@ -5,6 +5,6 @@ namespace SigmaBooking.Core.IServices;
 public interface ICredentialsService
 {
     CredentialsModel CreateCredentials(CredentialsModel credentialsModel);
-    CredentialsModel GetCredentials(string id);
+    CredentialsModel GetCredentials(string credentials);
     void DeleteCredentials(string id);
 }

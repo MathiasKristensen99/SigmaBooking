@@ -36,16 +36,16 @@ namespace SigmaBooking.WebApi.Controllers;
             }
         }
 
-        [HttpGet]
-        public ActionResult<CredentialsDTO> getCredentials(string id)
+        [HttpGet("{credentials}")]
+        public ActionResult<CredentialsDTO> getCredentials(string credentials)
         {
             try
             {
-                var credentials = _credentialsService.GetCredentials(id);
+                var newCredentials = _credentialsService.GetCredentials(credentials);
                 return Ok(new CredentialsDTO
                 {
-                    Id = credentials.Id,
-                    Credentials = credentials.Credentials
+                    Id = newCredentials.Id,
+                    Credentials = newCredentials.Credentials
                 });
             }
             catch (Exception e)
