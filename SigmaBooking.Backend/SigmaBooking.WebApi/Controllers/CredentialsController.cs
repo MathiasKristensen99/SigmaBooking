@@ -11,8 +11,7 @@ namespace SigmaBooking.WebApi.Controllers;
     public class CredentialsController : ControllerBase
     {
         private readonly ICredentialsService _credentialsService;
-
-
+        
         public CredentialsController(ICredentialsService service)
         {
             _credentialsService = service;
@@ -34,6 +33,24 @@ namespace SigmaBooking.WebApi.Controllers;
             catch (ArgumentException e)
             {
                 return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult<CredentialsDTO> getCredentials(string id)
+        {
+            try
+            {
+                var credentials = _credentialsService.GetCredentials(id);
+                return Ok(new CredentialsDTO
+                {
+                    Id = credentials.Id,
+                    Credentials = credentials.Credentials
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
             }
         }
 

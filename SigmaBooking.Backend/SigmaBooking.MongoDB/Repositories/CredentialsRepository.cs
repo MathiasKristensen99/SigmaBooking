@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using SigmaBooking.Core.Models;
 using SigmaBooking.Domain.IRepositories;
@@ -34,6 +35,19 @@ public class CredentialsRepository : ICredentialsRepository
         {
             Id = credentialsEntity.Id,
             Credentials = credentialsEntity.credentials
+        };
+    }
+
+    public CredentialsModel GetCredentials(string id)
+    {
+        var credentials = _credentialsCollection
+            .Find(Builders<CredentialsEntity>.Filter
+                .Eq("_id", ObjectId.Parse(id)))
+            .FirstOrDefault();
+        return new CredentialsModel
+        {
+            Id = credentials.Id,
+            Credentials = credentials.credentials
         };
     }
 
