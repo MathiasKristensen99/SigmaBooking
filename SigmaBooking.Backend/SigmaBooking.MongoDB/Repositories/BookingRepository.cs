@@ -17,7 +17,7 @@ public class BookingRepository : IBookingRepository
     public BookingRepository(IOptions<SigmaBookingDatabaseSettings> options)
     {
         var mongoClient = new MongoClient(
-            "mongodb+srv://MathiasKristensen99:phkg!e!g3C7n6CY@easv.i3hgs.mongodb.net/SigmaBooking?retryWrites=true&w=majority");
+            "mongodb+srv://MathiasKristensen99:phkg!e!g3C7n6CY@easv.i3hgs.mongodb.net/?retryWrites=true&w=majority");
 
         var mongoDatabase = mongoClient.GetDatabase(
             "SigmaBooking");
