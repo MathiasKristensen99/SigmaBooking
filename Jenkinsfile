@@ -72,18 +72,6 @@ pipeline {
                 sh "docker-compose --env-file config/Test.env up -d"
             }
         }
-        stage("Execute UI tests") {
-            steps {
-                sh "mkdir -p ${SCREENSHOT_PATH}"
-                sh "chmod a=rwx ${SCREENSHOT_PATH}"
-                sh "docker run -v /var/lib/jenkins/workspace/SigmaBooking/SigmaBooking.Frontend/testcafe/:/tests -t testcafe/testcafe chromium /tests/*.js"
-            }
-            post {
-                always {
-                    archiveArtifacts artifacts: "${SCREENSHOT_PATH}/**", allowEmptyArchive: true
-                }
-            }
-        }
         stage("Push images to registry") {
             steps {
                 sh "docker-compose --env-file config/Test.env push"
