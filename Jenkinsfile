@@ -53,6 +53,17 @@ pipeline {
                 sh 'k6 run performancetest/performance-test.js'
             }
         }
+        stage("Execute UI tests") {
+            steps {
+                sh "docker run -v /var/lib/jenkins/workspace/SigmaBooking/SigmaBooking.Frontend/testcafe/:/tests -t testcafe/testcafe chromium /tests/*.js"
+
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: "${SCREENSHOT_PATH}/**", allowEmptyArchive: true
+                }
+            }
+        }
         stage("Clean containers") {
             steps {
                 script {
