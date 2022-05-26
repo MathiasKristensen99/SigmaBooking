@@ -57,25 +57,6 @@ pipeline {
                 sh 'k6 run performancetest/performance-test.js'
             }
         }
-        stage("Reset test environment") {
-            steps {
-                sh "docker-compose down"
-                sh "docker-compose up -d --build"
-                sh "mkdir -p ${SCREENSHOT_PATH}"
-                sh "chmod a=rwx ${SCREENSHOT_PATH}"
-            }
-        }
-        stage("Execute UI tests") {
-            steps {
-                sh "docker run -v /var/lib/jenkins/workspace/SigmaBooking/SigmaBooking.Frontend/testcafe/:/tests -t testcafe/testcafe chromium /tests/*.js"
-
-            }
-            post {
-                always {
-                    archiveArtifacts artifacts: "${SCREENSHOT_PATH}/**", allowEmptyArchive: true
-                }
-            }
-        }
         stage("Clean containers") {
             steps {
                 script {
@@ -89,6 +70,18 @@ pipeline {
         stage("Deploy API") {
             steps {
                 sh "docker-compose --env-file config/Test.env up -d"
+            }
+        }
+        stage("Execute UI tests") {
+            steps {
+                sh "mkdir -p ${SCREENSHOT_PATH}"
+                sh "chmod a=rwx ${SCREENSHOT_PATH}"
+                sh "docker run -v /var/lib/jenkins/workspace/SigmaBooking/SigmaBooking.Frontend/testcafe/:/tests -t testcafe/testcafe chromium /tests/*.js"
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: "${SCREENSHOT_PATH}/**", allowEmptyArchive: true
+                }
             }
         }
         stage("Push images to registry") {
