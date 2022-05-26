@@ -7,7 +7,7 @@ export const options = {
     duration: '20s',
     vus: 50,
     thresholds: {
-        http_req_duration: ['p(90)<400']
+        http_req_duration: ['p(90)<500']
     },
 };
 
