@@ -17,16 +17,16 @@ public class BookingRepository : IBookingRepository
     public BookingRepository(IOptions<SigmaBookingDatabaseSettings> options)
     {
         var mongoClient = new MongoClient(
-            "mongodb+srv://MathiasKristensen99:phkg!e!g3C7n6CY@easv.i3hgs.mongodb.net/SigmaBooking?retryWrites=true&w=majority");
+            options.Value.ConnectionString);
 
         var mongoDatabase = mongoClient.GetDatabase(
-            "SigmaBooking");
+            options.Value.DatabaseName);
 
         _bookingsCollection = mongoDatabase.GetCollection<BookingEntity>(
-            "Bookings");
+            options.Value.BookingsCollectionName);
         
         _tablesCollection = mongoDatabase.GetCollection<TableEntity>(
-            "Tables");
+            options.Value.TablesCollectionName);
     }
     public Booking CreateBooking(Booking booking)
     {

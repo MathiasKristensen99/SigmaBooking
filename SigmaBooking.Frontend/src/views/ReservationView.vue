@@ -162,7 +162,7 @@
         </div>
         <input type="text" class="form-control" v-model="updateInputName" placeholder="Navn"> <br/>
         <input type="text" class="form-control" v-model="updateInputPhone" placeholder="Tlf nr"><br/>
-        <Datepicker v-model="todaysDate" :value="date" @update:modelValue="handleUpdateDate"></Datepicker><br/>
+        <Datepicker v-model="date" :value="date" @update:modelValue="handleUpdateDate"></Datepicker><br/>
         <select class="form-control" v-model="updateTableId">
           <option value="" selected disabled>Vælg bord</option>
           <option v-for="table in tables" :value="table.id.toString()" v-bind:key="updateInputName">{{table.i}}</option>
@@ -205,7 +205,7 @@ const tableLayoutService: TableLayoutService = new TableLayoutService();
 const bookingService: BookingService = new BookingService();
 
 
-const date = ref(getCurrentDate_HttpFormat());
+const date = ref(getCurrentDate());
 const todaysDate = new Date()
 const inputName = ref("");
 const inputEmail = ref("");
@@ -216,7 +216,7 @@ const inputStartTime = ref("");
 const inputEndTime = ref("");
 const tableId = ref("");
 const peopleCount = ref();
-const clickCount = ref();
+const clickCount = ref(0);
 
 
 const handleDate = (modelData) => {
@@ -224,13 +224,14 @@ const handleDate = (modelData) => {
   const dd = String(modelData.getDate()).padStart(2, "0");
   const mm = String(modelData.getMonth() + 1).padStart(2, "0");
   const yyyy = modelData.getFullYear();
-  const datePicked = dd + "%2F" + mm + "%2F" + yyyy
+  const datePicked = dd + mm + yyyy
   date.value = datePicked;
 
   bookingStore.getBookings(datePicked);
 }
 
 function sortTime(){
+  console.log(clickCount.value);
   if(clickCount.value === 0){
     bookingStore.bookings.sort((a,b) =>(a.startTime < b.startTime ? -1 :1));
     clickCount.value = 1;
@@ -274,11 +275,11 @@ const handleUpdateDate = (modelData) => {
   const dd = String(modelData.getDate()).padStart(2, "0");
   const mm = String(modelData.getMonth() + 1).padStart(2, "0");
   const yyyy = modelData.getFullYear();
-  const datePicked = dd + "%2F" + mm + "%2F" + yyyy
+  const datePicked = dd  + mm  + yyyy
   updateDate.value = datePicked;
 }
 
-const updateDate = ref(getCurrentDate_HttpFormat());
+const updateDate = ref(getCurrentDate());
 const updateInputName = ref("");
 const updateInputEmail = ref("");
 const updateInputPhone = ref("");
@@ -339,12 +340,12 @@ function updateBooking() {
   );
 }
 
-function getCurrentDate_HttpFormat(): string {
+function getCurrentDate(): string {
   let today = new Date();
   const dd = String(today.getDate()).padStart(2, "0");
   const mm = String(today.getMonth() + 1).padStart(2, "0");
   const yyyy = today.getFullYear();
-  return dd + "%2F" + mm + "%2F" + yyyy;
+  return dd  + mm  + yyyy;
 }
 
 

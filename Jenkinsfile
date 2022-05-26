@@ -48,6 +48,11 @@ pipeline {
                 }
             }
         }
+        stage("Performance testing") {
+            steps {
+                sh 'k6 run performancetest/performance-test.js'
+            }
+        }
         stage("Clean containers") {
             steps {
                 script {

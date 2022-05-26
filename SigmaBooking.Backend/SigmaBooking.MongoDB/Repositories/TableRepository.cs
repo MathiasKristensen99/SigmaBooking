@@ -15,16 +15,16 @@ public class TableRepository : ITableRepository
     public TableRepository(IOptions<SigmaBookingDatabaseSettings> options)
     {
         var mongoClient = new MongoClient(
-            "mongodb+srv://MathiasKristensen99:phkg!e!g3C7n6CY@easv.i3hgs.mongodb.net/SigmaBooking?retryWrites=true&w=majority");
+            options.Value.ConnectionString);
 
         var mongoDatabase = mongoClient.GetDatabase(
-            "SigmaBooking");
+            options.Value.DatabaseName);
 
         _tablesCollection = mongoDatabase.GetCollection<TableEntity>(
-            "Tables");
+            options.Value.TablesCollectionName);
         
         _tableLayoutCollection = mongoDatabase.GetCollection<TableLayoutEntity>(
-            "TableLayouts");
+            options.Value.TableLayoutsCollectionName);
     }
 
     public Table CreateTable(Table table)

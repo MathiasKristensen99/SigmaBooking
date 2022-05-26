@@ -34,6 +34,87 @@ public class BookingServiceTest
         // assert
         repoMock.Verify(repository => repository.GetAllBookings(), Times.Once);
     }
+    
+    [Fact]
+    public void GetAllByDate()
+    {
+        var expected = new List<Booking>();
+        expected.Add(new Booking
+        {
+            Id = "id1",
+            Name = "test",
+            Email = "test@gmail.com",
+            Phone = "12345678",
+            Description = "Test",
+            TableId = "test",
+            Table = null,
+            Date = "01012022",
+            StartTime = "18:00",
+            EndTime = "24:00",
+            PeopleCount = 2,
+            IsEating = true
+        });
+        
+        var repoMock = new Mock<IBookingRepository>();
+        repoMock.Setup(repository => repository.GetBookingsByDate("01012022")).Returns(expected);
+        var bookingService = new BookingService(repoMock.Object);
+        
+        Assert.Equal(expected, bookingService.GetBookingsByDate("01012022"), new BookingComparer());
+    }
+    
+    [Fact]
+    public void GetAllBookings()
+    {
+        var expected = new List<Booking>();
+        expected.Add(new Booking
+        {
+            Id = "id1",
+            Name = "test",
+            Email = "test@gmail.com",
+            Phone = "12345678",
+            Description = "Test",
+            TableId = "test",
+            Table = null,
+            Date = "01012022",
+            StartTime = "18:00",
+            EndTime = "24:00",
+            PeopleCount = 2,
+            IsEating = true
+        });
+        
+        var repoMock = new Mock<IBookingRepository>();
+        repoMock.Setup(repository => repository.GetAllBookings()).Returns(expected);
+        var bookingService = new BookingService(repoMock.Object);
+        
+        Assert.Equal(expected, bookingService.GetAllBookings(), new BookingComparer());
+    }
+    
+    [Fact]
+    public void GetAllByDateAndTable()
+    {
+        var expected = new List<Booking>();
+        expected.Add(new Booking
+        {
+            Id = "id1",
+            Name = "test",
+            Email = "test@gmail.com",
+            Phone = "12345678",
+            Description = "Test",
+            TableId = "test",
+            Table = null,
+            Date = "01012022",
+            StartTime = "18:00",
+            EndTime = "24:00",
+            PeopleCount = 2,
+            IsEating = true
+        });
+        
+        var repoMock = new Mock<IBookingRepository>();
+        repoMock.Setup(repository => repository.GetBookingsByTableAndDate("test", "01012022")).Returns(expected);
+        var bookingService = new BookingService(repoMock.Object);
+        
+        Assert.Equal(expected, bookingService.GetBookingsByTableAndDate("test", "01012022"), new BookingComparer());
+    }
 
     [Fact]
     public void GetBookingById()
