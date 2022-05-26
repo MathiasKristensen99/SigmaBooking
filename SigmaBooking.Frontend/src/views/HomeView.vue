@@ -179,7 +179,7 @@ export default {
         static: false,
       };
       axios
-        .post("https://localhost:7026/api/Tables/", {
+        .post("https://sigmabooking.azurewebsites.net/api/Tables/", {
           x: item.x,
           y: item.y,
           w: item.w,
@@ -197,7 +197,7 @@ export default {
     },
     removeItem: function (val) {
       axios
-        .delete("https://localhost:7026/api/Tables/" + val)
+        .delete("https://sigmabooking.azurewebsites.net/api/Tables/" + val)
         .then((response) => {
           console.log(response.data);
           const index = this.layout.map((item) => item.id).indexOf(val);
@@ -211,7 +211,10 @@ export default {
 
     getCredentials: function () {
       axios
-        .get("https://localhost:7026/api/credentials/" + this.credentials)
+        .get(
+          "https://sigmabooking.azurewebsites.net/api/credentials/" +
+            this.credentials
+        )
         .then((response) => {
           if (response.data.credentials === this.credentials) {
             this.loggedInId = response.data.id;
@@ -239,12 +242,12 @@ export default {
         }
         const tableLayout = {
           isDefault: false,
-          date: this.currentDateHttpFormat().toString(),
+          date: this.currentDate().toString(),
           tables: tables,
         };
         console.log(tableLayout);
         axios
-          .post("https://localhost:7026/api/TableLayouts/", {
+          .post("https://sigmabooking.azurewebsites.net/api/TableLayouts/", {
             id: "",
             isDefault: tableLayout.isDefault,
             date: tableLayout.date,
@@ -264,8 +267,8 @@ export default {
     getLayout() {
       axios
         .get(
-          "https://localhost:7026/api/TableLayouts/" +
-            this.currentDateHttpFormat().toString()
+          "https://sigmabooking.azurewebsites.net/api/TableLayouts/" +
+            this.currentDate().toString()
         )
         .then((response) => {
           console.log(response.data);
@@ -283,16 +286,23 @@ export default {
 
     updateTableLayout() {
       axios
-        .put("https://localhost:7026/api/TableLayouts/" + this.layoutId, {
-          id: this.layoutId,
-          isDefault: this.isDefault,
-          date: this.layoutDate,
-          tables: this.layout,
-        })
+        .put(
+          "https://sigmabooking.azurewebsites.net/api/TableLayouts/" +
+            this.layoutId,
+          {
+            id: this.layoutId,
+            isDefault: this.isDefault,
+            date: this.layoutDate,
+            tables: this.layout,
+          }
+        )
         .then((response) => {
           console.log(response.data);
           axios
-            .put("https://localhost:7026/api/Tables/", this.layout)
+            .put(
+              "https://sigmabooking.azurewebsites.net/api/Tables/",
+              this.layout
+            )
             .then((response) => {
               console.log(response.data);
             })
@@ -305,19 +315,12 @@ export default {
         });
     },
     currentDate() {
-      const current = new Date();
-      const date = `${current.getDate()}/${
-        current.getMonth() + 1
-      }/${current.getFullYear()}`;
-      return date;
-    },
-    currentDateHttpFormat() {
       let today = new Date();
       const dd = String(today.getDate()).padStart(2, "0");
       const mm = String(today.getMonth() + 1).padStart(2, "0");
       const yyyy = today.getFullYear();
 
-      today = dd + "%2F" + mm + "%2F" + yyyy;
+      today = dd + mm + yyyy;
       return today;
     },
   },
@@ -334,22 +337,6 @@ export default {
   },
 };
 
-/*
-draggable and  reizable removed
-
-<div class="col-1">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" v-model="draggable" />
-        <label class="form-check-label">Draggable</label>
-      </div>
-    </div>
-    <div class="col-1">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" v-model="resizable" />
-        <label class="form-check-label">Resizable</label>
-      </div>
-    </div>
- */
 </script>
 
 <style>

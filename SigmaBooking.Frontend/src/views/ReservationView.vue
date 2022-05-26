@@ -205,7 +205,7 @@ const tableLayoutService: TableLayoutService = new TableLayoutService();
 const bookingService: BookingService = new BookingService();
 
 
-const date = ref(getCurrentDate_HttpFormat());
+const date = ref(getCurrentDate());
 const todaysDate = new Date()
 const inputName = ref("");
 const inputEmail = ref("");
@@ -224,7 +224,7 @@ const handleDate = (modelData) => {
   const dd = String(modelData.getDate()).padStart(2, "0");
   const mm = String(modelData.getMonth() + 1).padStart(2, "0");
   const yyyy = modelData.getFullYear();
-  const datePicked = dd + "%2F" + mm + "%2F" + yyyy
+  const datePicked = dd + mm + yyyy
   date.value = datePicked;
 
   bookingStore.getBookings(datePicked);
@@ -274,11 +274,11 @@ const handleUpdateDate = (modelData) => {
   const dd = String(modelData.getDate()).padStart(2, "0");
   const mm = String(modelData.getMonth() + 1).padStart(2, "0");
   const yyyy = modelData.getFullYear();
-  const datePicked = dd + "%2F" + mm + "%2F" + yyyy
+  const datePicked = dd  + mm  + yyyy
   updateDate.value = datePicked;
 }
 
-const updateDate = ref(getCurrentDate_HttpFormat());
+const updateDate = ref(getCurrentDate());
 const updateInputName = ref("");
 const updateInputEmail = ref("");
 const updateInputPhone = ref("");
@@ -339,12 +339,12 @@ function updateBooking() {
   );
 }
 
-function getCurrentDate_HttpFormat(): string {
+function getCurrentDate(): string {
   let today = new Date();
   const dd = String(today.getDate()).padStart(2, "0");
   const mm = String(today.getMonth() + 1).padStart(2, "0");
   const yyyy = today.getFullYear();
-  return dd + "%2F" + mm + "%2F" + yyyy;
+  return dd  + mm  + yyyy;
 }
 
 
