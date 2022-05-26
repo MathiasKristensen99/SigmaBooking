@@ -60,6 +60,27 @@ public class TableServiceTest
         }
 
         [Fact]
+        public void GetTableById()
+        {
+            var expected = new Table
+            {
+                Id = "id1",
+                Static = false,
+                X = 1,
+                Y = 1,
+                W = 1,
+                H = 1,
+                I = "1"
+            };
+
+            var repoMock = new Mock<ITableRepository>();
+            repoMock.Setup(repository => repository.GetTableById(expected.Id)).Returns(expected);
+            var tableService = new TableService(repoMock.Object);
+            
+            Assert.Equal(expected, tableService.GetTableById("id1"), new TableComparer());
+        }
+        
+        [Fact]
         public void CreateTable()
         {
             var expected = new Table
@@ -80,6 +101,29 @@ public class TableServiceTest
             var tableService = new TableService(repoMock.Object);
             
             Assert.Equal(expected, tableService.CreateTable(expected), new TableComparer());
+        }
+
+        [Fact]
+        public void UpdateTable()
+        {
+            var expected = new Table
+            {
+                Id = "id1",
+                Static = false,
+                X = 1,
+                Y = 1,
+                W = 1,
+                H = 1,
+                I = "1"
+            };
+            
+            var repoMock = new Mock<ITableRepository>();
+
+            repoMock.Setup(repository => repository.UpdateTable(expected)).Returns(expected);
+
+            var tableService = new TableService(repoMock.Object);
+            
+            Assert.Equal(expected, tableService.UpdateTable(expected), new TableComparer());
         }
 
         public class TableComparer : IEqualityComparer<Table>

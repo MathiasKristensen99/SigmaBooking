@@ -197,6 +197,33 @@ public class BookingServiceTest
 
         Assert.Equal(expected, bookingService.CreateBooking(expected), new BookingComparer());
     }
+    
+    [Fact]
+    public void UpdateBooking()
+    {
+        var expected = new Booking
+        {
+            Id = "id1",
+            Name = "test",
+            Email = "test@gmail.com",
+            Phone = "12345678",
+            Description = "Test",
+            TableId = "test",
+            Table = null,
+            Date = "01/01/2022",
+            StartTime = "18:00",
+            EndTime = "24:00",
+            PeopleCount = 2,
+            IsEating = true
+        };
+
+        var repoMock = new Mock<IBookingRepository>();
+        repoMock.Setup(repository => repository.UpdateBooking(expected)).Returns(expected);
+
+        var bookingService = new BookingService(repoMock.Object);
+
+        Assert.Equal(expected, bookingService.UpdateBooking(expected), new BookingComparer());
+    }
 
     public class BookingComparer : IEqualityComparer<Booking>
     {

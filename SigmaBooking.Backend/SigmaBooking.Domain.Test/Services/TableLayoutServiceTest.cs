@@ -83,6 +83,26 @@ public class TableLayoutServiceTest
         
         Assert.Equal(expected, tableLayoutService.CreateTableLayout(expected), new TableLayoutComparer());
     }
+    
+    [Fact]
+    public void UpdateTableLayout()
+    {
+        var expected = new TableLayout
+        {
+            Id = "id1",
+            Date = "01/01/2022",
+            IsDefault = false,
+            Tables = null,
+            TableIds = null
+        };
+
+        var repoMock = new Mock<ITableLayoutRepository>();
+        repoMock.Setup(repository => repository.UpdateTableLayout(expected)).Returns(expected);
+
+        var tableLayoutService = new TableLayoutService(repoMock.Object);
+        
+        Assert.Equal(expected, tableLayoutService.UpdateTableLayout(expected), new TableLayoutComparer());
+    }
 
     private class TableLayoutComparer : IEqualityComparer<TableLayout>
     {
