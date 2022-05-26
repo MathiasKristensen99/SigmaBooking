@@ -25,17 +25,6 @@
               <li class="nav-item">
                 <a class="nav-link" href="/reservations">Reservations</a>
               </li>
-              <li>
-                <input class="inputField" type="password" id="login" />
-                <!--                <form>Credentials<input type="text" name="firstname" /></form>-->
-                <button
-                  class="btn btn-secondary me-2"
-                  type="submit"
-                  @click="credCheck"
-                >
-                  Submit
-                </button>
-              </li>
             </ul>
           </div>
         </div>
