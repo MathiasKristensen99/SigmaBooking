@@ -162,7 +162,7 @@
         </div>
         <input type="text" class="form-control" v-model="updateInputName" placeholder="Navn"> <br/>
         <input type="text" class="form-control" v-model="updateInputPhone" placeholder="Tlf nr"><br/>
-        <Datepicker v-model="todaysDate" :value="date" @update:modelValue="handleUpdateDate"></Datepicker><br/>
+        <Datepicker v-model="date" :value="date" @update:modelValue="handleUpdateDate"></Datepicker><br/>
         <select class="form-control" v-model="updateTableId">
           <option value="" selected disabled>Vælg bord</option>
           <option v-for="table in tables" :value="table.id.toString()" v-bind:key="updateInputName">{{table.i}}</option>
