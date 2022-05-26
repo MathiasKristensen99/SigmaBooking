@@ -26,11 +26,7 @@ namespace SigmaBooking.WebApi.Controllers
         [HttpPost]
         public ActionResult<CreateTableLayoutDto> CreateTableLayout(CreateTableLayoutDto dto)
         {
-            var tables = new List<Table>();
-            
-            foreach (var table in dto.Tables)
-            {
-                tables.Add(_tableService.CreateTable(new Table
+            var tables = dto.Tables.Select(table => _tableService.CreateTable(new Table
                 {
                     Static = table.Static,
                     X = table.X,
@@ -38,9 +34,9 @@ namespace SigmaBooking.WebApi.Controllers
                     W = table.W,
                     H = table.H,
                     I = table.I
-                }));
-            }
-            
+                }))
+                .ToList();
+
             var tableLayoutFromDto = new TableLayout
             {
                 IsDefault = dto.IsDefault,

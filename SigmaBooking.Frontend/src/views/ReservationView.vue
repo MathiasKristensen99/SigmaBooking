@@ -97,11 +97,6 @@
       </div>
     </div>
   </div>
-
-
-
-
-
   <div class="modal" id="addBooking">
     <div class="modal-dialog card">
       <div class="modal-content create_background">
@@ -143,11 +138,6 @@
       </div>
     </div>
   </div>
-
-
-
-
-
   <div class="modal" id="updateBooking">
     <div class="modal-dialog card">
       <div class="modal-content create_background">

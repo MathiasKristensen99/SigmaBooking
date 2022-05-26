@@ -18,11 +18,9 @@
         <button
           class="btn btn-secondary"
           type="button"
-          data-bs-toggle="modal"
-          data-bs-target="#loginModal"
           @click="createLayout"
         >
-          Ny Standard
+          Ny bordopstilling
         </button>
 
         <div class="modal" id="loginModal">
@@ -226,42 +224,41 @@ export default {
     },
 
     createLayout() {
-      if (!this.loggedInId === "") {
-        let tables = [];
-        for (const item of this.layout) {
-          const table = {
-            id: "string",
-            x: item.x,
-            y: item.y,
-            w: item.w,
-            h: item.h,
-            i: item.i,
-            static: item.static,
-          };
-          tables.push(table);
-        }
-        const tableLayout = {
-          isDefault: false,
-          date: this.currentDate().toString(),
-          tables: tables,
+      let tables = [];
+      this.getDate();
+      for (const item of this.layout) {
+        const table = {
+          id: "string",
+          x: item.x,
+          y: item.y,
+          w: item.w,
+          h: item.h,
+          i: item.i,
+          static: item.static,
         };
-        console.log(tableLayout);
-        axios
-          .post("https://sigmabooking.azurewebsites.net/api/TableLayouts/", {
-            id: "",
-            isDefault: tableLayout.isDefault,
-            date: tableLayout.date,
-            tables: tableLayout.tables,
-          })
-          .then((response) => {
-            console.log(response);
-            this.layout = [];
-            this.getLayout();
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        tables.push(table);
       }
+      const tableLayout = {
+        isDefault: false,
+        date: this.getDate(),
+        tables: tables,
+      };
+      console.log(tableLayout);
+      axios
+        .post("https://sigmabooking.azurewebsites.net/api/TableLayouts/", {
+          id: "",
+          isDefault: tableLayout.isDefault,
+          date: tableLayout.date,
+          tables: tableLayout.tables,
+        })
+        .then((response) => {
+          console.log(response);
+          this.layout = [];
+          this.getLayout();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
 
     getLayout() {
@@ -323,6 +320,15 @@ export default {
       today = dd + mm + yyyy;
       return today;
     },
+    getDate() {
+      let newDate = "";
+      const dd = String(this.date.getDate()).padStart(2, "0");
+      const mm = String(this.date.getMonth() + 1).padStart(2, "0");
+      const yyyy = this.date.getFullYear();
+
+      newDate = dd + mm + yyyy;
+      return newDate;
+    },
   },
   created() {
     this.getLayout();
@@ -336,7 +342,6 @@ export default {
     } else return (button.disabled = true);
   },
 };
-
 </script>
 
 <style>
