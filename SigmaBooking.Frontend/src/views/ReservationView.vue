@@ -36,7 +36,7 @@
           <div class="col-12 col-sm-6 col-md-3" v-for="(booking, index) in bookings"
           v-bind:key="index">
             <div class="card">
-              <div class="card-header">
+              <div class="card-header" id="card-header">
                 Bord: {{ booking.table.i}}
                 <hr class="solid" />
               </div>
