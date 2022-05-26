@@ -162,7 +162,7 @@
         <input type="text" class="form-control" v-model="updateInputEndTime" placeholder="Slut tidspunkt"><br/>
         <div>
           Spise
-          <input class="form-check-input" type="checkbox" v-model="inputIsEating">
+          <input class="form-check-input" type="checkbox" v-model="updateInputIsEating">
         </div>
         <input type="number" class="form-control" v-model="updatePeopleCount" placeholder="Antal personer"><br/>
         <input type="text" class="form-control" v-model="updateInputDescription" placeholder="Beskrivelse">

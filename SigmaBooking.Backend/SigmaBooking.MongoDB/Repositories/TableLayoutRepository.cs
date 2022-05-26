@@ -41,14 +41,9 @@ public class TableLayoutRepository : ITableLayoutRepository
         
         _tablesLayoutCollection.InsertOne(tableLayoutEntity);
 
-        var tables = new List<Table>();
-        
-        foreach (var tableId in tableLayoutEntity.TableIds)
-        {
-            var table = _tablesCollection.Find(Builders<TableEntity>.Filter.Eq("_id", ObjectId.Parse(tableId)))
-                .FirstOrDefault();
-            
-            tables.Add(new Table
+        var tables = tableLayoutEntity.TableIds.Select(tableId => _tablesCollection.Find(Builders<TableEntity>.Filter.Eq("_id", ObjectId.Parse(tableId)))
+                .FirstOrDefault())
+            .Select(table => new Table
             {
                 Id = table.Id,
                 Static = table.Static,
@@ -57,8 +52,8 @@ public class TableLayoutRepository : ITableLayoutRepository
                 W = table.W,
                 H = table.H,
                 I = table.I
-            });
-        }
+            })
+            .ToList();
 
         return new TableLayout
         {
