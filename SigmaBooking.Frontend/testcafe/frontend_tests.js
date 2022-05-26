@@ -7,11 +7,7 @@ test.page("https://sigmabooking-68a9f.web.app/")("GoToHomeView", async (t) => {
   const location = await ClientFunction(() => document.location.href);
   await t.expect(location()).contains("/home");
   }
-).timeouts({
-  pageLoadTimeout:    2000,
-  pageRequestTimeout: 60000,
-  ajaxRequestTimeout: 60000,
-});
+);
 test.page("https://sigmabooking-68a9f.web.app/")(
   "GoToReservationView",
   async (t) => {
@@ -19,8 +15,4 @@ test.page("https://sigmabooking-68a9f.web.app/")(
     const location = await ClientFunction(() => document.location.href);
     await t.expect(location()).contains("/reservation");
   }
-).timeouts({
-  pageLoadTimeout:    2000,
-  pageRequestTimeout: 60000,
-  ajaxRequestTimeout: 60000,
-});
+);
