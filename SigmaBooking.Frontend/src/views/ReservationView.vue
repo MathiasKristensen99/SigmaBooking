@@ -216,7 +216,7 @@ const inputStartTime = ref("");
 const inputEndTime = ref("");
 const tableId = ref("");
 const peopleCount = ref();
-const clickCount = ref();
+const clickCount = ref(0);
 
 
 const handleDate = (modelData) => {
@@ -231,6 +231,7 @@ const handleDate = (modelData) => {
 }
 
 function sortTime(){
+  console.log(clickCount.value);
   if(clickCount.value === 0){
     bookingStore.bookings.sort((a,b) =>(a.startTime < b.startTime ? -1 :1));
     clickCount.value = 1;
