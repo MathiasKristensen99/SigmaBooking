@@ -311,6 +311,17 @@ function createBooking() {
       inputIsEating.value,
       inputDescription.value);
 
+      tableId.value = null;
+      inputName.value = null;
+      inputPhone.value = null;
+      inputEmail.value = null;
+      date.value = null;
+      peopleCount.value = null;
+      inputStartTime.value = null;
+      inputEndTime.value = null;
+      inputIsEating.value = null;
+      inputDescription.value = null;
+
   console.log(bookingStore.bookingsFromDate);
 }
 
