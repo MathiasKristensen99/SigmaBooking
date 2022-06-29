@@ -112,7 +112,7 @@
         <input type="text" class="form-control" v-model="inputName" placeholder="Navn"> <br/>
         <input type="text" class="form-control" v-model="inputPhone" placeholder="Tlf nr"> <br/>
         <select class="form-control" v-model="tableId">
-          <option value="" selected disabled>Vælg bord</option>
+          <option value="" >Vælg bord</option>
           <option v-for="table in tables" :value="table.id.toString()" v-bind:key="inputName">{{table.i}}</option>
         </select> <br/>
         <input type="text" class="form-control" v-model="inputEmail" placeholder="Email"> <br/>
